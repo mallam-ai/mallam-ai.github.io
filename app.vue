@@ -1,8 +1,7 @@
 <template>
-  <Head>
-    <Title>MALLAM AI</Title>
-  </Head>
   <UContainer>
-    <NuxtPage></NuxtPage>
+    <NuxtLayout>
+      <NuxtPage></NuxtPage>
+    </NuxtLayout>
   </UContainer>
 </template>

@@ -1,37 +1,59 @@
+<script setup lang="ts">
+import imgHFLogo from "~/assets/img/hf-logo.svg";
+
+definePageMeta({
+  layout: "fullscreen",
+});
+
+const items = [
+  {
+    label: "Dataset",
+    icon: "i-mdi-database",
+    to: {
+      name: "dataset",
+    },
+    trailingIcon: "i-mdi-chevron-right",
+  },
+  {
+    label: "GitHub",
+    icon: "i-mdi-github",
+    to: "https://github.com/mallam-ai",
+    target: "_blank",
+    trailingIcon: "i-mdi-arrow-top-right-bold-box-outline",
+  },
+  {
+    label: "Hugging Face",
+    icon: "i-noto-v1-hugging-face",
+    to: "https://huggingface.co/mallam-ai",
+    target: "_blank",
+    trailingIcon: "i-mdi-arrow-top-right-bold-box-outline",
+  },
+];
+</script>
+
 <template>
-  <div class="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center">
+  <Head>
+    <Title>MALLAM</Title>
+  </Head>
 
-    <div class="flex flex-row justify-center items-center pr-4">
-      <div class="me-6">
-        <img src="~/assets/img/mallam-logo.png" class="rounded w-16 h-16" />
-      </div>
-      <div class="font-semibold text-3xl">MALLAM AI</div>
+  <div class="flex flex-row justify-center items-center pr-4">
+    <div class="me-6">
+      <img src="~/assets/img/mallam-logo.png" class="rounded w-16 h-16" />
     </div>
-
-    <div class="mt-8 flex flex-row items-center">
-      <UButton
-        variant="link"
-        to="https://github.com/mallam-ai"
-        target="_blank"
-        icon="i-simple-icons-github"
-        trailing-icon="i-mdi-chevron-right"
-        label="GitHub"
-      ></UButton>
-
-      <UButton
-        variant="link"
-        to="https://huggingface.co/mallam-ai"
-        target="_blank"
-        icon="i-noto-v1-hugging-face"
-        trailing-icon="i-mdi-chevron-right"
-        label="Hugging Face"
-      ></UButton>
-    </div>
+    <div class="font-semibold text-3xl">MALLAM</div>
   </div>
 
-  <div class="absolute bottom-0 left-0 w-full flex flex-col items-center pb-8">
-    <span class="text-slate-400 text-sm">
-      Copyright 2023 MALLAM Developers All Rights Reserved
-    </span>
+  <div class="mt-8 flex flex-col lg:flex-row">
+    <UButton
+      v-for="item in items"
+      variant="ghost"
+      :to="item.to"
+      :target="item.target"
+      :label="item.label"
+      :icon="item.icon"
+      :trailing-icon="item.trailingIcon"
+      size="lg"
+      class="mb-1 lg:mb-0 lg:me-2"
+    ></UButton>
   </div>
 </template>
