@@ -48,4 +48,4 @@ Push to `main` branch and GitHub Actions will automatically deploy to production
 
 ## Credits
 
-MALLAM AI, MIT License
+MALLAM Developers, MIT License

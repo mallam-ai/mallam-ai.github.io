@@ -28,4 +28,10 @@
       ></UButton>
     </div>
   </div>
+
+  <div class="absolute bottom-0 left-0 w-full flex flex-col items-center pb-8">
+    <span class="text-slate-400 text-sm">
+      Copyright 2023 MALLAM Developers All Rights Reserved
+    </span>
+  </div>
 </template>
