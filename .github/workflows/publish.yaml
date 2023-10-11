@@ -1,0 +1,59 @@
+name: publish
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: setup nodejs
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+          cache: pnpm
+
+      - name: install dependencies
+        run: pnpm install
+
+      - name: build site
+        run: pnpm run build
+        env:
+          NITRO_PRESET: github_pages
+
+      - name: upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: ./.output/public
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    needs: build
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
