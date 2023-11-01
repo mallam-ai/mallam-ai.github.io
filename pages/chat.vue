@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {FormSubmitEvent} from "#ui/types";
+import {marked} from "marked";
 
 definePageMeta({
   titleLabel: "Chat",
@@ -11,6 +12,10 @@ const turnstile = ref();
 const token = ref('')
 
 const output = ref('')
+
+const outputHTML = computed(() => {
+  return marked(output.value)
+})
 
 const state = reactive({
   input: '',
@@ -58,10 +63,6 @@ async function onSubmit(event: FormSubmitEvent<any>) {
           <UTextarea v-model="state.input" :disabled="working"/>
         </UFormGroup>
 
-        <UFormGroup label="Output" class="my-4">
-          <UTextarea v-model="output" :disabled="true"/>
-        </UFormGroup>
-
         <div class="py-4 flex flex-col md:flex-row justify-between items-center">
           <div class="mb-4 md:mb-0">
             <NuxtTurnstile v-model="token" ref="turnstile"/>
@@ -71,6 +72,11 @@ async function onSubmit(event: FormSubmitEvent<any>) {
           </UButton>
         </div>
       </UForm>
+    </div>
+    <div class="w-full" v-if="output">
+      <UFormGroup label="Output">
+        <article class="prose lg:prose-xl dark:prose-invert" v-html="outputHTML"></article>
+      </UFormGroup>
     </div>
   </div>
 </template>
