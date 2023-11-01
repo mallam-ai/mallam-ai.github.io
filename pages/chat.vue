@@ -75,7 +75,7 @@ async function onSubmit(event: FormSubmitEvent<any>) {
     </div>
     <div class="w-full" v-if="output">
       <UFormGroup label="Output">
-        <article class="prose lg:prose-xl dark:prose-invert" v-html="outputHTML"></article>
+        <article class="prose prose-sm lg:prose-base dark:prose-invert" v-html="outputHTML"></article>
       </UFormGroup>
     </div>
   </div>
