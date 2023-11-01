@@ -6,7 +6,7 @@ export default defineNuxtConfig({
         icons: ["heroicons", "simple-icons", "mdi", "noto-v1"],
     },
     turnstile: {
-        siteKey: process.env.TURNSTITE_SITE_KEY,
+        siteKey: process.env.TURNSTILE_SITE_KEY,
     },
     runtimeConfig: {
         backend: {
