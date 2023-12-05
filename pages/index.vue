@@ -7,14 +7,6 @@ definePageMeta({
 
 const items = [
   {
-    label: "Dataset",
-    icon: "i-mdi-database",
-    to: {
-      name: "dataset",
-    },
-    trailingIcon: "i-mdi-chevron-right",
-  },
-  {
     label: "GitHub",
     icon: "i-mdi-github",
     to: "https://github.com/mallam-ai",
