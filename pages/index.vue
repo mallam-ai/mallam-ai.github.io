@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import imgHFLogo from "~/assets/img/hf-logo.svg";
-
 definePageMeta({
   layout: "fullscreen",
 });
+
+const showSignOut = ref(false);
+
+const { data: user, refresh: refreshUser } = await useUser();
 
 const items = [
   {
@@ -21,6 +23,11 @@ const items = [
     trailingIcon: "i-mdi-arrow-top-right-bold-box-outline",
   },
 ];
+
+async function doSignOut() {
+  await $fetch("/api/auth/clear");
+  await refreshUser();
+}
 </script>
 
 <template>
@@ -47,5 +54,50 @@ const items = [
       size="lg"
       class="mb-1 lg:mb-0 lg:me-2"
     ></UButton>
+  </div>
+
+  <div class="mt-8 flex flex-col">
+    <div v-if="user.userId">
+      <div class="text-sm flex flex-row justify-center items-center">
+        <span class="text-gray-400">Signed in as</span>
+        <UIcon name="i-mdi-github" class="mx-1" />
+        <span>{{ user.userName }}</span>
+      </div>
+      <div
+        class="mt-4 flex flex-row justify-between items-center"
+        v-if="showSignOut"
+      >
+        <UButton
+          size="xs"
+          color="red"
+          variant="ghost"
+          icon="i-mdi-check-circle-outline"
+          @click.prevent="doSignOut"
+        >
+          Confirm to Sign Out
+        </UButton>
+        <UButton
+          size="xs"
+          variant="ghost"
+          icon="i-mdi-close-circle-outline"
+          @click.prevent="showSignOut = false"
+          class="ms-4"
+        >
+          Cancel
+        </UButton>
+      </div>
+      <div class="mt-4 flex flex-row justify-center items-center" v-else>
+        <UButton
+          size="xs"
+          color="red"
+          icon="i-mdi-logout"
+          variant="ghost"
+          @click.prevent="showSignOut = true"
+        >
+          Sign Out
+        </UButton>
+      </div>
+    </div>
+    <div v-else></div>
   </div>
 </template>
