@@ -24,11 +24,9 @@ const state = reactive({
 const working = ref(false);
 
 async function onSubmit(event: FormSubmitEvent<any>) {
-  // Do something with data
-  console.log(event.data);
   working.value = true;
   try {
-    const { data, error } = await useFetch("/api/chat", {
+    const { response } = await $fetch("/api/chat", {
       method: "POST",
       immediate: true,
       body: JSON.stringify({
@@ -36,11 +34,9 @@ async function onSubmit(event: FormSubmitEvent<any>) {
         token: token.value,
       }),
     });
-    if (error.value) {
-      output.value = error.value.message;
-    } else {
-      output.value = data.value.response || "no response";
-    }
+    output.value = response;
+  } catch (e) {
+    output.value = `Error: ${e}`;
   } finally {
     working.value = false;
     turnstile.value?.reset();
