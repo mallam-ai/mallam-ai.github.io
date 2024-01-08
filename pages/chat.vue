@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { FormSubmitEvent } from "#ui/types";
 import { marked } from "marked";
 
 definePageMeta({
@@ -23,7 +22,7 @@ const state = reactive({
 
 const working = ref(false);
 
-async function onSubmit(event: FormSubmitEvent<any>) {
+async function onSubmit(event: any) {
   working.value = true;
   try {
     const { response } = await $fetch("/api/chat", {
@@ -54,7 +53,7 @@ async function onSubmit(event: FormSubmitEvent<any>) {
       />
     </div>
     <div class="w-full">
-      <UForm :state="state" @submit.prevent="onSubmit">
+      <UForm :state="state" @submit="onSubmit">
         <UFormGroup label="Input" name="input">
           <UTextarea v-model="state.input" :disabled="working" />
         </UFormGroup>
