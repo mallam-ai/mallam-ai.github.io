@@ -74,7 +74,7 @@ const navigationLinks = computed(() => {
     return [
       {
         label: "Teams",
-        icon: "i-heroicons-building-office-2",
+        icon: "i-heroicons-user-group",
         to: {
           name: "dashboard",
         },
