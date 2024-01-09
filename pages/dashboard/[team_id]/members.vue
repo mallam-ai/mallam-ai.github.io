@@ -1,11 +1,11 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: "dashboard",
-  titleLabel: "Members",
-  titleIcon: "i-heroicons-users",
+  middleware: ["auth"],
 });
 </script>
 
 <template>
-  <UnderDevelopment></UnderDevelopment>
+  <SkeletonDashboard page-icon="i-heroicons-users" page-title="Members">
+    <UnderDevelopment></UnderDevelopment>
+  </SkeletonDashboard>
 </template>

@@ -1,14 +1,16 @@
 <script setup lang="ts">
-const route = useRoute();
-const teamId = route.params.team_id as string;
-
 definePageMeta({
-  layout: "dashboard",
-  titleLabel: "Current Team",
-  titleIcon: "i-heroicons-user-group",
+  middleware: ["auth"],
 });
+const { data: team, refresh: refreshTeam } = await useCurrentTeam();
 </script>
 
 <template>
-  <UnderDevelopment></UnderDevelopment>
+  <SkeletonDashboard
+    page-icon="i-heroicons-user-group"
+    :page-title="'Team: ' + team.displayName"
+    :active-team-display-name="team.displayName"
+  >
+    <UnderDevelopment></UnderDevelopment>
+  </SkeletonDashboard>
 </template>

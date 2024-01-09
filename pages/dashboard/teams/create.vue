@@ -2,9 +2,7 @@
 import type { FormError, FormSubmitEvent } from "#ui/types";
 
 definePageMeta({
-  layout: "dashboard",
-  titleLabel: "Create Team",
-  titleIcon: "i-mdi-account-multiple-plus-outline",
+  middleware: ["auth"],
 });
 
 const state = reactive({
@@ -45,18 +43,23 @@ async function onSubmit(event: FormSubmitEvent<any>) {
 </script>
 
 <template>
-  <UForm
-    :validate="validate"
-    :state="state"
-    class="space-y-4 w-80"
-    @submit="onSubmit"
+  <SkeletonDashboard
+    page-icon="i-mdi-account-multiple-plus-outline"
+    page-title="Create Team"
   >
-    <UFormGroup label="Display Name" name="displayName">
-      <UInput v-model="state.displayName" />
-    </UFormGroup>
-
-    <UButton type="submit" :loading="working" :disabled="working"
-      >Submit</UButton
+    <UForm
+      :validate="validate"
+      :state="state"
+      class="space-y-4 w-80"
+      @submit="onSubmit"
     >
-  </UForm>
+      <UFormGroup label="Display Name" name="displayName">
+        <UInput v-model="state.displayName" />
+      </UFormGroup>
+
+      <UButton type="submit" :loading="working" :disabled="working"
+        >Submit</UButton
+      >
+    </UForm>
+  </SkeletonDashboard>
 </template>

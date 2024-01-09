@@ -1,11 +1,6 @@
 <script lang="ts" setup>
 import { useTimeoutFn } from "@vueuse/core";
 
-definePageMeta({
-  titleLabel: "Sign In with GitHub",
-  titleIcon: "i-mdi-github",
-});
-
 const toast = useToast();
 const route = useRoute();
 const { code, state } = route.query;
@@ -30,7 +25,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="py-8">
-    <p class="font-bold text-lg">Please wait while we are signing you in...</p>
-  </div>
+  <SkeletonDefault title-label="Sign in with GitHub" title-icon="i-mdi-github">
+    <div class="py-8">
+      <p class="font-bold text-lg">
+        Please wait while we are signing you in...
+      </p>
+    </div>
+  </SkeletonDefault>
 </template>

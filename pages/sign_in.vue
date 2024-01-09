@@ -3,11 +3,6 @@ import { useTimeoutFn } from "@vueuse/core";
 
 const toast = useToast();
 
-definePageMeta({
-  titleLabel: "Sign In with GitHub",
-  titleIcon: "i-mdi-github",
-});
-
 onMounted(() => {
   useTimeoutFn(async () => {
     try {
@@ -24,7 +19,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="py-8">
-    <p class="font-bold text-lg">Please wait while we are redirecting you...</p>
-  </div>
+  <SkeletonDefault title-label="Sign in with GitHub" title-icon="i-mdi-github">
+    <div class="py-8">
+      <p class="font-bold text-lg">
+        Please wait while we are redirecting you...
+      </p>
+    </div>
+  </SkeletonDefault>
 </template>
