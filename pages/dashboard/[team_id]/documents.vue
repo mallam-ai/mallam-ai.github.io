@@ -2,12 +2,14 @@
 definePageMeta({
   middleware: ["auth"],
 });
+const { data: team, refresh: refreshTeam } = await useCurrentTeam();
 </script>
 
 <template>
   <SkeletonDashboard
-    page-icon="i-heroicons-document-text"
-    page-title="Documents"
+    title-icon="i-heroicons-document-text"
+    title-name="Documents"
+    :active-team-display-name="team.displayName"
   >
     <UnderDevelopment></UnderDevelopment>
   </SkeletonDashboard>

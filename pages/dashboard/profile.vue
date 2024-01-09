@@ -14,8 +14,8 @@ async function doSignOut() {
 
 <template>
   <SkeletonDashboard
-    page-icon="i-mdi-account-circle-outline"
-    page-title="Profile"
+    title-icon="i-mdi-account-circle-outline"
+    title-name="Profile"
   >
     <div class="flex flex-col">
       <article class="prose prose-sm dark:prose-invert">

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const props = defineProps<{
-  pageTitle: string;
-  pageIcon: string;
+  titleName: string;
+  titleIcon: string;
   activeTeamDisplayName?: string;
 }>();
 </script>
@@ -9,7 +9,7 @@ const props = defineProps<{
 <template>
   <div class="flex flex-col md:flex-row my-6">
     <Head>
-      <Title>MALLAM - {{ pageTitle }}</Title>
+      <Title>MALLAM - {{ titleName }}</Title>
     </Head>
 
     <div
@@ -28,11 +28,11 @@ const props = defineProps<{
     <div class="w-full md:w-2/3 lg:w-4/5 px-12 py-6">
       <div class="flex flex-row items-center">
         <UIcon
-          :name="pageIcon"
+          :name="titleIcon"
           class="text-2xl font-semibold me-2"
           size="lg"
         ></UIcon>
-        <span class="text-2xl font-semibold">{{ pageTitle }}</span>
+        <span class="text-2xl font-semibold">{{ titleName }}</span>
       </div>
       <div class="flex flex-col mt-8 px-1">
         <slot></slot>

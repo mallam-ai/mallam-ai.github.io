@@ -7,8 +7,8 @@ const { data: team, refresh: refreshTeam } = await useCurrentTeam();
 
 <template>
   <SkeletonDashboard
-    page-icon="i-heroicons-user-group"
-    :page-title="'Team: ' + team.displayName"
+    title-icon="i-heroicons-user-group"
+    :title-name="'Team: ' + team.displayName"
     :active-team-display-name="team.displayName"
   >
     <UnderDevelopment></UnderDevelopment>

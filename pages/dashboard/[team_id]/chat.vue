@@ -2,12 +2,14 @@
 definePageMeta({
   middleware: ["auth"],
 });
+const { data: team, refresh: refreshTeam } = await useCurrentTeam();
 </script>
 
 <template>
   <SkeletonDashboard
-    page-icon="i-heroicons-chat-bubble-left-right"
-    page-title="Chat"
+    title-icon="i-heroicons-chat-bubble-left-right"
+    title-name="Chat"
+    :active-team-display-name="team.displayName"
   >
     <UnderDevelopment></UnderDevelopment>
   </SkeletonDashboard>

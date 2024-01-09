@@ -19,7 +19,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <SkeletonDefault title-label="Sign in with GitHub" title-icon="i-mdi-github">
+  <SkeletonDefault title-name="Sign in with GitHub" title-icon="i-mdi-github">
     <div class="py-8">
       <p class="font-bold text-lg">
         Please wait while we are redirecting you...

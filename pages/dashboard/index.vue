@@ -9,7 +9,10 @@ const { data: teams, refresh: refreshTeams } = await useTeams();
 </script>
 
 <template>
-  <SkeletonDashboard page-icon="i-mdi-account-group-outline" page-title="Teams">
+  <SkeletonDashboard
+    title-icon="i-mdi-account-group-outline"
+    title-name="Teams"
+  >
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       <DashboardTeamCard>
         <p class="text-xl font-bold mb-2">Create Team</p>
