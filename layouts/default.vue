@@ -31,4 +31,6 @@ const titleIcon = computed(() => {
   <div class="flex flex-col items-center py-8">
     <Footer></Footer>
   </div>
+
+  <UNotifications />
 </template>

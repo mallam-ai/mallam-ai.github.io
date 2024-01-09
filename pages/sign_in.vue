@@ -1,16 +1,26 @@
 <script lang="ts" setup>
+import { useTimeoutFn } from "@vueuse/core";
+
+const toast = useToast();
+
 definePageMeta({
   titleLabel: "Sign In with GitHub",
   titleIcon: "i-mdi-github",
 });
 
-setTimeout(async () => {
-  const { url } = await $fetch("/api/auth/authorization_url", {
-    method: "POST",
-    body: { vendor: "github" },
-  });
-  navigateTo(url, { external: true });
-}, 2000);
+onMounted(() => {
+  useTimeoutFn(async () => {
+    try {
+      const { url } = await $fetch("/api/auth/authorization_url", {
+        method: "POST",
+        body: { vendor: "github" },
+      });
+      navigateTo(url, { external: true });
+    } catch (e) {
+      toastError(toast, e);
+    }
+  }, 2000);
+});
 </script>
 
 <template>
