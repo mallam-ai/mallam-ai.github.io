@@ -1,4 +1,4 @@
-import { passthroughHeaders } from "~/utils/headers";
+import { decorateHeaders } from "~/utils/headers";
 import { emptyUser } from "~/utils/types";
 
 export const useUser = async () => {
@@ -6,7 +6,7 @@ export const useUser = async () => {
     "user",
     () =>
       $fetch("/api/auth/check", {
-        headers: passthroughHeaders(),
+        headers: decorateHeaders(),
       }),
     {
       default() {

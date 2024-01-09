@@ -1,10 +1,20 @@
-export type User = {
+export interface Team {
+  id: string;
+  displayName: string;
+  createdBy: string;
+  createdAt: string;
+  membershipId: string;
+  membershipRole: string;
+  membershipCreatedAt: string;
+}
+
+export interface User {
   id: string;
   vendor: string;
   vendorUserId: string;
   displayName: string;
   createdAt: string;
-};
+}
 
 export function emptyUser(): User {
   return {

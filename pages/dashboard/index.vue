@@ -1,11 +1,56 @@
 <script setup lang="ts">
+import { formatTimeAgo } from "@vueuse/core";
+
 definePageMeta({
   layout: "dashboard",
   titleLabel: "Teams",
   titleIcon: "i-heroicons-user-group",
 });
+
+const { data: teams, refresh: refreshTeams } = await useTeams();
 </script>
 
 <template>
-  <UnderDevelopment></UnderDevelopment>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <TeamCard>
+      <p class="text-xl font-bold mb-2">Create Team</p>
+      <p>Create a team to collaborate with your friends and colleagues.</p>
+      <template #button>
+        <UButton
+          :to="{ name: 'dashboard-teams-create' }"
+          :block="true"
+          color="lime"
+          label="Create Team"
+          icon="i-mdi-account-multiple-plus-outline"
+        ></UButton>
+      </template>
+    </TeamCard>
+
+    <TeamCard v-for="item of teams" v-bind:key="item.id">
+      <span class="text-xl font-bold mb-2 flex flex-row items-center">
+        <UIcon name="i-mdi-account-group-outline" class="me-2"></UIcon>
+        <span>{{ item.displayName }}</span>
+      </span>
+      <div>
+        <UBadge
+          color="green"
+          class="me-2"
+          variant="subtle"
+          :label="item.membershipRole"
+        ></UBadge>
+        <UBadge
+          variant="subtle"
+          :label="'joined ' + formatTimeAgo(new Date(item.membershipCreatedAt))"
+        ></UBadge>
+      </div>
+      <template #button>
+        <UButton
+          :to="{ name: 'dashboard-org', params: { org: item.id } }"
+          label="Enter Team"
+          :block="true"
+          icon="i-heroicons-arrow-right-end-on-rectangle"
+        ></UButton>
+      </template>
+    </TeamCard>
+  </div>
 </template>

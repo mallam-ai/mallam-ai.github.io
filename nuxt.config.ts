@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ["@nuxt/ui", "@nuxtjs/turnstile"],
+  modules: ["@vueuse/nuxt", "@nuxt/ui", "@nuxtjs/turnstile"],
   ui: {
     icons: ["heroicons", "simple-icons", "mdi", "noto-v1"],
   },

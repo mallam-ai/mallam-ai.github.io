@@ -13,81 +13,78 @@ const navigationLinks = computed(() => {
 
   if (org) {
     return [
-      {
-        label: "(Current Team)",
-        icon: "i-heroicons-building-office-2",
-        to: {
-          name: "dashboard-org",
-          params: {
-            org,
+      [
+        {
+          label: "(Current Team)",
+          icon: "i-heroicons-building-office-2",
+          to: {
+            name: "dashboard-org",
+            params: {
+              org,
+            },
           },
         },
-      },
-      {
-        label: "Chat",
-        icon: "i-heroicons-chat-bubble-left-right",
-        to: {
-          name: "dashboard-org-chat",
-          params: {
-            org,
+        {
+          label: "Chat",
+          icon: "i-heroicons-chat-bubble-left-right",
+          to: {
+            name: "dashboard-org-chat",
+            params: {
+              org,
+            },
           },
         },
-      },
-      {
-        label: "Documents",
-        icon: "i-heroicons-document-text",
-        to: {
-          name: "dashboard-org-documents",
-          params: {
-            org,
+        {
+          label: "Documents",
+          icon: "i-heroicons-document-text",
+          to: {
+            name: "dashboard-org-documents",
+            params: {
+              org,
+            },
           },
         },
-      },
-      {
-        label: "Members",
-        icon: "i-heroicons-users",
-        to: {
-          name: "dashboard-org-members",
-          params: {
-            org,
+        {
+          label: "Members",
+          icon: "i-heroicons-users",
+          to: {
+            name: "dashboard-org-members",
+            params: {
+              org,
+            },
           },
         },
-      },
-      {
-        label: "Teams",
-        icon: "i-heroicons-building-office-2",
-        to: {
-          name: "dashboard-org-teams",
+      ],
+      [
+        {
+          label: "Go Back",
+          icon: "i-heroicons-arrow-left-end-on-rectangle",
+          to: {
+            name: "dashboard",
+          },
         },
-      },
-      {
-        label: "Profile",
-        avatar: {
-          src: createUserAvatarURL(user.value),
-        },
-        to: {
-          name: "dashboard-org-profile",
-        },
-      },
+      ],
     ];
   } else {
     return [
-      {
-        label: "Teams",
-        icon: "i-heroicons-user-group",
-        to: {
-          name: "dashboard",
+      [
+        {
+          label: "Teams",
+          icon: "i-heroicons-user-group",
+          to: {
+            name: "dashboard",
+          },
         },
-      },
-      {
-        label: "Profile",
-        avatar: {
-          src: createUserAvatarURL(user.value),
+        {
+          label: "Profile",
+          avatar: {
+            src: createUserAvatarURL(user.value),
+          },
+          to: {
+            name: "dashboard-profile",
+          },
         },
-        to: {
-          name: "dashboard-profile",
-        },
-      },
+      ],
     ];
   }
 });
@@ -108,7 +105,7 @@ const navigationLinks = computed(() => {
         </ULink>
       </div>
       <UVerticalNavigation
-        class="w-full md:w-2/3"
+        class="w-full"
         :ui="{ size: 'text-lg' }"
         :links="navigationLinks"
       />
