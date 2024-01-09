@@ -37,7 +37,7 @@ async function onSubmit(event: FormSubmitEvent<any>) {
       }),
       body: JSON.stringify(event.data),
     });
-    navigateTo({ name: "dashboard-org", params: { org: team.id } });
+    navigateTo({ name: "dashboard-team_id", params: { team_id: team.id } });
   } finally {
     working.value = false;
   }

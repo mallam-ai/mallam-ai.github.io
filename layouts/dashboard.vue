@@ -7,20 +7,37 @@ const titleIcon = computedTitleIcon();
 
 const { data: user, refresh: refreshUser } = await useUser();
 
-const navigationLinks = computed(() => {
+const teamId = computed(() => {
   const route = useRoute();
-  const org = route.params.org || "";
+  return route.params.team_id as string;
+});
 
-  if (org) {
+const activeTeamDisplayName = ref(". . .");
+
+watch(
+  teamId,
+  async (teamId) => {
+    if (teamId) {
+      const { data: team, refresh: refreshTeam } = await useTeam(teamId);
+      activeTeamDisplayName.value = team.value.displayName;
+    } else {
+      activeTeamDisplayName.value = ". . .";
+    }
+  },
+  { immediate: true }
+);
+
+const navigationLinks = asyncComputed(async () => {
+  if (teamId.value) {
     return [
       [
         {
-          label: "(Current Team)",
-          icon: "i-heroicons-building-office-2",
+          label: activeTeamDisplayName.value,
+          icon: "i-heroicons-user-group",
           to: {
-            name: "dashboard-org",
+            name: "dashboard-team_id",
             params: {
-              org,
+              team_id: teamId.value,
             },
           },
         },
@@ -28,9 +45,9 @@ const navigationLinks = computed(() => {
           label: "Chat",
           icon: "i-heroicons-chat-bubble-left-right",
           to: {
-            name: "dashboard-org-chat",
+            name: "dashboard-team_id-chat",
             params: {
-              org,
+              team_id: teamId.value,
             },
           },
         },
@@ -38,9 +55,9 @@ const navigationLinks = computed(() => {
           label: "Documents",
           icon: "i-heroicons-document-text",
           to: {
-            name: "dashboard-org-documents",
+            name: "dashboard-team_id-documents",
             params: {
-              org,
+              team_id: teamId.value,
             },
           },
         },
@@ -48,9 +65,9 @@ const navigationLinks = computed(() => {
           label: "Members",
           icon: "i-heroicons-users",
           to: {
-            name: "dashboard-org-members",
+            name: "dashboard-team_id-members",
             params: {
-              org,
+              team_id: teamId.value,
             },
           },
         },

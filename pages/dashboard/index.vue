@@ -45,7 +45,7 @@ const { data: teams, refresh: refreshTeams } = await useTeams();
       </div>
       <template #button>
         <UButton
-          :to="{ name: 'dashboard-org', params: { org: item.id } }"
+          :to="{ name: 'dashboard-team_id', params: { team_id: item.id } }"
           label="Enter Team"
           :block="true"
           icon="i-heroicons-arrow-right-end-on-rectangle"

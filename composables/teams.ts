@@ -12,3 +12,19 @@ export const useTeams = async () => {
     }
   );
 };
+
+export const useTeam = async (teamId: string) => {
+  return useAsyncData(
+    "team-" + teamId,
+    () =>
+      $fetch("/api/teams/get", {
+        query: { teamId },
+        headers: decorateHeaders(),
+      }),
+    {
+      default() {
+        return emptyTeam();
+      },
+    }
+  );
+};

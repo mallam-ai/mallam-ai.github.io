@@ -8,6 +8,18 @@ export interface Team {
   membershipCreatedAt: string;
 }
 
+export function emptyTeam(): Team {
+  return {
+    id: "",
+    displayName: "",
+    createdBy: "",
+    createdAt: "",
+    membershipId: "",
+    membershipRole: "",
+    membershipCreatedAt: "",
+  };
+}
+
 export interface User {
   id: string;
   vendor: string;
