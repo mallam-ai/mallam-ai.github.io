@@ -15,3 +15,17 @@ export function emptyUser(): User {
     createdAt: "",
   };
 }
+
+export function createUserAvatarURL(
+  user:
+    | {
+        vendor: string;
+        vendorUserId: string;
+      }
+    | undefined
+): string {
+  if (user && user.vendor == "github" && user.vendorUserId) {
+    return `https://avatars.githubusercontent.com/u/${user.vendorUserId}?v=4`;
+  }
+  return "https://avatars.githubusercontent.com/u/51222892?v=4";
+}

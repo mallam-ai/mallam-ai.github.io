@@ -1,17 +1,9 @@
 <script setup lang="ts">
+import { createUserAvatarURL } from "~/utils/types";
+
 const { data: user, refresh: refreshUser } = await useUser();
 
 const navigationLinks = computed(() => {
-  // start with default avatar of mallam-ai org
-  let avatarURL = "https://avatars.githubusercontent.com/u/51222892?v=4";
-
-  if (user.value && user.value.userId) {
-    const splits = user.value.userId.split("::");
-    if (splits[0] == "github") {
-      avatarURL = `https://avatars.githubusercontent.com/u/${splits[1]}?v=4`;
-    }
-  }
-
   return [
     {
       label: "Teams",
@@ -23,7 +15,7 @@ const navigationLinks = computed(() => {
     {
       label: "Profile",
       avatar: {
-        src: avatarURL,
+        src: createUserAvatarURL(user.value),
       },
       to: {
         name: "dashboard-profile",
@@ -36,7 +28,7 @@ const navigationLinks = computed(() => {
 <template>
   <UContainer class="flex flex-col lg:flex-row my-12">
     <div>
-      <UVerticalNavigation :links="navigationLinks" />
+      <UVerticalNavigation :ui="{ size: 'text-lg' }" :links="navigationLinks" />
     </div>
     <div>
       <slot></slot>
