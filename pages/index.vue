@@ -57,11 +57,11 @@ async function doSignOut() {
   </div>
 
   <div class="mt-8 flex flex-col">
-    <div v-if="user.userId">
+    <div v-if="user.id">
       <div class="text-sm flex flex-row justify-center items-center">
         <span class="text-gray-400">Signed in as</span>
-        <UIcon name="i-mdi-github" class="mx-1" />
-        <span>{{ user.userName }}</span>
+        <UIcon v-if="user.vendor === 'github'" name="i-mdi-github" class="mx-1" />
+        <span>{{ user.displayName }}</span>
       </div>
       <div
         class="mt-4 flex flex-row justify-between items-center"

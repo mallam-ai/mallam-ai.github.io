@@ -13,7 +13,6 @@ export default defineEventHandler(async (event) => {
   const session = await useAppSession(event);
   await session.update({
     userId: user.id,
-    userName: user.name,
   });
 
   return {};

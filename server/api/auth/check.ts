@@ -1,7 +1,12 @@
-export default defineEventHandler(async (event) => {
+import { User, emptyUser } from "~/utils/types";
+
+export default defineEventHandler(async (event): Promise<User> => {
   const session = await useAppSession(event);
-  return {
-    userId: session.data.userId || "",
-    userName: session.data.userName || "",
-  };
+  const id = session.data.userId || "";
+  if (id) {
+    const { user } = await invokeBackend(event, "user_get", { id });
+    return user;
+  } else {
+    return emptyUser();
+  }
 });

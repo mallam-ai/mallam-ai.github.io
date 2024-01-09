@@ -3,7 +3,6 @@ import { useSession } from "h3";
 
 export type AppSessionData = {
   userId?: string;
-  userName?: string;
 };
 
 export async function useAppSession(event: H3Event): Promise<{
