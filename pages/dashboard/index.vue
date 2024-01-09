@@ -1,6 +1,8 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: "unscoped",
+  layout: "dashboard",
+  titleLabel: "Teams",
+  titleIcon: "i-heroicons-user-group",
 });
 </script>
 

@@ -24,7 +24,7 @@ onMounted(() => {
     } catch (e) {
       toastError(toast, e);
     }
-    navigateTo({ name: "index" });
+    navigateTo({ name: "dashboard" });
   }, 1000);
 });
 </script>

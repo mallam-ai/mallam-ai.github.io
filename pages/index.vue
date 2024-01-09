@@ -3,8 +3,6 @@ definePageMeta({
   layout: "fullscreen",
 });
 
-const showSignOut = ref(false);
-
 const { data: user, refresh: refreshUser } = await useUser();
 
 const items = [
@@ -56,48 +54,20 @@ async function doSignOut() {
     ></UButton>
   </div>
 
-  <div class="mt-8 flex flex-col">
-    <div v-if="user.id">
-      <div class="text-sm flex flex-row justify-center items-center">
-        <span class="text-gray-400">Signed in as</span>
-        <UIcon v-if="user.vendor === 'github'" name="i-mdi-github" class="mx-1" />
-        <span>{{ user.displayName }}</span>
-      </div>
-      <div
-        class="mt-4 flex flex-row justify-between items-center"
-        v-if="showSignOut"
-      >
-        <UButton
-          size="xs"
-          color="red"
-          variant="ghost"
-          icon="i-mdi-check-circle-outline"
-          @click.prevent="doSignOut"
-        >
-          Confirm to Sign Out
-        </UButton>
-        <UButton
-          size="xs"
-          variant="ghost"
-          icon="i-mdi-close-circle-outline"
-          @click.prevent="showSignOut = false"
-          class="ms-4"
-        >
-          Cancel
-        </UButton>
-      </div>
-      <div class="mt-4 flex flex-row justify-center items-center" v-else>
-        <UButton
-          size="xs"
-          color="red"
-          icon="i-mdi-logout"
-          variant="ghost"
-          @click.prevent="showSignOut = true"
-        >
-          Sign Out
-        </UButton>
-      </div>
-    </div>
-    <div v-else></div>
+  <div v-if="user.id" class="mt-8 flex flex-col">
+    <UButton
+      label="Continue to Dashboard"
+      icon="i-mdi-monitor-dashboard"
+      size="lg"
+      :to="{ name: 'dashboard' }"
+    ></UButton>
+  </div>
+  <div v-else class="mt-8 flex flex-col">
+    <UButton
+      label="Sign in with GitHub"
+      icon="i-simple-icons-github"
+      size="lg"
+      :to="{ name: 'sign_in' }"
+    ></UButton>
   </div>
 </template>

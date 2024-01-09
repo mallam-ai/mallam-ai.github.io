@@ -19,4 +19,7 @@ export default defineNuxtConfig({
       secretKey: process.env.TURNSTILE_SECRET_KEY,
     },
   },
+  colorMode: {
+    preference: "dark",
+  },
 });

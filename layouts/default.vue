@@ -1,13 +1,6 @@
 <script setup lang="ts">
-const titleLabel = computed(() => {
-  const route = useRoute();
-  return route.meta.titleLabel || "noname";
-});
-
-const titleIcon = computed(() => {
-  const route = useRoute();
-  return route.meta.titleIcon || "i-heroicons-home";
-});
+const titleLabel = computedTitleLabel();
+const titleIcon = computedTitleIcon();
 </script>
 
 <template>
@@ -31,6 +24,4 @@ const titleIcon = computed(() => {
   <div class="flex flex-col items-center py-8">
     <Footer></Footer>
   </div>
-
-  <UNotifications />
 </template>

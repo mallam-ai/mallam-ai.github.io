@@ -8,6 +8,4 @@
   <div class="absolute bottom-0 left-0 w-full flex flex-col items-center pb-8">
     <Footer></Footer>
   </div>
-
-  <UNotifications />
 </template>
