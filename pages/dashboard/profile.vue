@@ -19,6 +19,8 @@ async function doSignOut() {
     <article class="prose prose-sm dark:prose-invert">
       <p><b>User ID</b></p>
       <p>{{ user.id }}</p>
+      <p><b>User Name</b></p>
+      <p>{{ user.displayName }}</p>
       <p><b>Authentication Provider</b></p>
       <p>{{ user.vendor }}/{{ user.vendorUserId }}</p>
       <p><b>Member Since</b></p>
