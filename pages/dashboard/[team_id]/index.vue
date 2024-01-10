@@ -22,6 +22,14 @@ const fields = computed(() => [
     name: "Team Created At",
     content: team.value.createdAt,
   },
+  {
+    name: "My Role in Team",
+    content: team.value.membershipRole,
+  },
+  {
+    name: "Joined At",
+    content: team.value.membershipCreatedAt,
+  },
 ]);
 </script>
 
@@ -31,8 +39,25 @@ const fields = computed(() => [
     :title-name="'Team: ' + team.displayName"
     :active-team-display-name="team.displayName"
   >
-    <div class="flex flex-col">
+    <div class="flex flex-col mb-6">
       <PlainFields :fields="fields"></PlainFields>
+    </div>
+    <div class="flex flex-row items-center">
+      <UButton
+        class="me-8"
+        icon="i-heroicons-pencil-square"
+        label="Edit Team"
+        color="primary"
+        :disabled="team.membershipRole !== 'admin'"
+        :to="{ name: 'dashboard-team_id-edit', params: { team_id: team.id } }"
+      ></UButton>
+      <UButton
+        label="Delete Team"
+        icon="i-heroicons-trash"
+        color="red"
+        :disabled="team.membershipRole !== 'admin'"
+        :to="{ name: 'dashboard-team_id-delete', params: { team_id: team.id } }"
+      ></UButton>
     </div>
   </SkeletonDashboard>
 </template>
