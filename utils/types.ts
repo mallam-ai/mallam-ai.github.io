@@ -39,15 +39,11 @@ export function emptyUser(): User {
 }
 
 export function createUserAvatarURL(
-  user:
-    | {
-        vendor: string;
-        vendorUserId: string;
-      }
-    | undefined
+  vendor?: string,
+  vendorUserId?: string
 ): string {
-  if (user && user.vendor == "github" && user.vendorUserId) {
-    return `https://avatars.githubusercontent.com/u/${user.vendorUserId}?v=4`;
+  if (vendor == "github" && vendorUserId) {
+    return `https://avatars.githubusercontent.com/u/${vendorUserId}?v=4`;
   }
   return "https://avatars.githubusercontent.com/u/51222892?v=4";
 }

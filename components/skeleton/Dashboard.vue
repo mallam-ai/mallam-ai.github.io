@@ -76,7 +76,10 @@ const links = computed(() => {
         {
           label: "Profile",
           avatar: {
-            src: createUserAvatarURL(user.value),
+            src: createUserAvatarURL(
+              user.value.vendor,
+              user.value.vendorUserId
+            ),
           },
           to: {
             name: "dashboard-profile",
