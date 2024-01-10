@@ -5,7 +5,7 @@ export const useUser = async () => {
   return useAsyncData(
     "user",
     () =>
-      $fetch("/api/auth/check", {
+      $fetch("/api/users/me", {
         headers: decorateHeaders(),
       }),
     {

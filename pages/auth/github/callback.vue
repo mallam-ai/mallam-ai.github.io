@@ -25,11 +25,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <SkeletonDefault title-name="Sign in with GitHub" title-icon="i-mdi-github">
+  <SkeletonOAuth title-name="Sign in with GitHub" title-icon="i-mdi-github">
     <div class="py-8">
       <p class="font-bold text-lg">
         Please wait while we are signing you in...
       </p>
     </div>
-  </SkeletonDefault>
+  </SkeletonOAuth>
 </template>

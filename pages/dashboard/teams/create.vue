@@ -57,9 +57,14 @@ async function onSubmit(event: FormSubmitEvent<any>) {
         <UInput v-model="state.displayName" />
       </UFormGroup>
 
-      <UButton type="submit" :loading="working" :disabled="working"
-        >Submit</UButton
-      >
+      <UButton
+        type="submit"
+        color="lime"
+        label="Create Team"
+        icon="i-mdi-account-multiple-plus-outline"
+        :loading="working"
+        :disabled="working"
+      ></UButton>
     </UForm>
   </SkeletonDashboard>
 </template>

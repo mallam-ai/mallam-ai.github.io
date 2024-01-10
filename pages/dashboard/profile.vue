@@ -10,6 +10,25 @@ async function doSignOut() {
   await refreshUser();
   navigateTo({ name: "index" });
 }
+
+const fields = computed(() => [
+  {
+    name: "User ID",
+    content: user.value.id,
+  },
+  {
+    name: "User Name",
+    content: user.value.displayName,
+  },
+  {
+    name: "Authentication Provider",
+    content: user.value.vendor + "/" + user.value.vendorUserId,
+  },
+  {
+    name: "Member Since",
+    content: user.value.createdAt,
+  },
+]);
 </script>
 
 <template>
@@ -18,16 +37,7 @@ async function doSignOut() {
     title-name="Profile"
   >
     <div class="flex flex-col">
-      <article class="prose prose-sm dark:prose-invert">
-        <p><b>User ID</b></p>
-        <p>{{ user.id }}</p>
-        <p><b>User Name</b></p>
-        <p>{{ user.displayName }}</p>
-        <p><b>Authentication Provider</b></p>
-        <p>{{ user.vendor }}/{{ user.vendorUserId }}</p>
-        <p><b>Member Since</b></p>
-        <p>{{ user.createdAt }}</p>
-      </article>
+      <PlainFields :fields="fields"></PlainFields>
       <div class="pt-6">
         <UButton
           size="sm"

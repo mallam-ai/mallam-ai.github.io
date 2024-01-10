@@ -14,7 +14,7 @@ const { titleName, titleIcon } = defineProps<{
     <ULink :to="{ name: 'index' }" class="flex flex-row items-center">
       <img src="~/assets/img/mallam-logo.png" class="rounded w-6 h-6" />
     </ULink>
-    <UIcon class="mx-2" name="i-mdi-chevron-right"></UIcon>
+    <UIcon class="mx-2" name="i-mdi-vector-combine"></UIcon>
     <UIcon class="font-semibold text-xl me-2" :name="titleIcon"></UIcon>
     <span class="font-semibold text-xl">{{ titleName }}</span>
   </div>
