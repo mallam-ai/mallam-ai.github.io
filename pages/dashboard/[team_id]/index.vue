@@ -45,17 +45,25 @@ const fields = computed(() => [
     <div class="flex flex-row items-center">
       <UButton
         class="me-8"
+        icon="i-heroicons-arrow-left-end-on-rectangle"
+        label="Leave Team"
+        color="red"
+        v-if="team.membershipRole !== 'admin'"
+        :to="{ name: 'dashboard-team_id-leave', params: { team_id: team.id } }"
+      ></UButton>
+      <UButton
+        class="me-8"
         icon="i-heroicons-pencil-square"
         label="Edit Team"
         color="primary"
-        :disabled="team.membershipRole !== 'admin'"
+        v-if="team.membershipRole == 'admin'"
         :to="{ name: 'dashboard-team_id-edit', params: { team_id: team.id } }"
       ></UButton>
       <UButton
         label="Delete Team"
         icon="i-heroicons-trash"
         color="red"
-        :disabled="team.membershipRole !== 'admin'"
+        v-if="team.membershipRole == 'admin'"
         :to="{ name: 'dashboard-team_id-delete', params: { team_id: team.id } }"
       ></UButton>
     </div>
