@@ -69,7 +69,6 @@ watch([page, pageCount], fetchDocuments);
       <UTable :columns="columns" :rows="documents">
         <template #title-data="{ row }">
           <UButton
-            v-if="row.isAnalyzed"
             variant="link"
             :to="{
               name: 'dashboard-team_id-documents-document_id',
@@ -79,18 +78,17 @@ watch([page, pageCount], fetchDocuments);
             :padded="false"
           >
           </UButton>
-          <UButton
-            v-else
-            variant="link"
-            icon="i-mdi-timer-sand"
-            :to="{
-              name: 'dashboard-team_id-documents-document_id',
-              params: { team_id: team.id, document_id: row.id },
-            }"
-            :label="row.title"
-            :padded="false"
+
+          <UBadge
+            variant="subtle"
+            size="xs"
+            v-if="!row.isAnalyzed"
+            class="ms-2"
+            color="amber"
           >
-          </UButton>
+            <UIcon class="me-1" name="i-mdi-timer-sand"></UIcon>
+            <span>Analyzing</span>
+          </UBadge>
         </template>
       </UTable>
     </div>
