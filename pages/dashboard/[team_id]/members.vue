@@ -88,7 +88,10 @@ async function updateMember(userId: string, role: string) {}
     title-name="Members"
     :active-team-display-name="team.displayName"
   >
-    <div class="flex flex-row items-center mb-4">
+    <div
+      v-if="team.membershipRole === 'admin'"
+      class="flex flex-row items-center mb-4"
+    >
       <UInput
         class="me-2 w-64"
         v-model="addFormUserId"
