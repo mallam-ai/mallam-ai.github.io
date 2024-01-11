@@ -55,13 +55,15 @@ watch([page, pageCount], fetchDocuments);
     title-name="Documents"
     :active-team-display-name="team.displayName"
   >
-    <div class="flex flex-row justify-center mb-4">
-      <UPagination
-        v-model="page"
-        :page-count="pageCount"
-        :total="total"
-        :disabled="working"
-      />
+    <div class="mb-6">
+      <UButton
+        icon="i-mdi-file-document-plus"
+        label="New Document"
+        :to="{
+          name: 'dashboard-team_id-documents-new',
+          params: { team_id: team.id },
+        }"
+      ></UButton>
     </div>
     <div class="mb-8">
       <UTable :columns="columns" :rows="documents">

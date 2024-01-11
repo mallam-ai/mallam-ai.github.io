@@ -45,7 +45,7 @@ async function onSubmit(event: FormSubmitEvent<any>) {
 <template>
   <SkeletonDashboard
     title-icon="i-mdi-account-multiple-plus-outline"
-    title-name="Create Team"
+    title-name="New Team"
   >
     <UForm
       :validate="validate"
@@ -60,7 +60,7 @@ async function onSubmit(event: FormSubmitEvent<any>) {
       <UButton
         type="submit"
         color="lime"
-        label="Create Team"
+        label="Create"
         icon="i-mdi-account-multiple-plus-outline"
         :loading="working"
         :disabled="working"

@@ -19,10 +19,10 @@ const { data: teams, refresh: refreshTeams } = await useTeams();
         <p>Create a team to collaborate with your friends and colleagues.</p>
         <template #button>
           <UButton
-            :to="{ name: 'dashboard-teams-create' }"
+            :to="{ name: 'dashboard-teams-new' }"
             :block="true"
             color="lime"
-            label="Create Team"
+            label="New Team"
             icon="i-mdi-account-multiple-plus-outline"
           ></UButton>
         </template>

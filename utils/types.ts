@@ -9,6 +9,19 @@ export interface MDocument {
   createdAt: string;
 }
 
+export function emptyDocument(): MDocument {
+  return {
+    id: "",
+    teamId: "",
+    isPublic: false,
+    isAnalyzed: false,
+    title: "",
+    content: "",
+    createdBy: "",
+    createdAt: "",
+  };
+}
+
 export interface Team {
   id: string;
   displayName: string;
