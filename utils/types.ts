@@ -1,3 +1,14 @@
+export interface MDocument {
+  id: string;
+  teamId: string;
+  isPublic: boolean;
+  isAnalyzed: boolean;
+  title: string;
+  content: string;
+  createdBy: string;
+  createdAt: string;
+}
+
 export interface Team {
   id: string;
   displayName: string;

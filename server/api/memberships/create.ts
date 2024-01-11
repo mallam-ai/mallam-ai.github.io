@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
     userId,
   }: { teamId: string; role: string; userId: string } = await readBody(event);
 
-  return await invokeBackend(event, "membership_add", {
+  return await invokeBackend(event, "membership_create", {
     teamId,
     userId: user.id,
     role,
