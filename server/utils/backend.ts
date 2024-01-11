@@ -1,4 +1,4 @@
-import {H3Event} from "h3";
+import { H3Event } from "h3";
 
 /**
  * This function try fetching backend service with cloudflare service binding named `BACKEND`.
@@ -11,18 +11,18 @@ import {H3Event} from "h3";
  * @returns
  */
 async function fetchBackend(
-    event: H3Event,
-    path: string,
-    init?: RequestInit
+  event: H3Event,
+  path: string,
+  init?: RequestInit
 ): Promise<Response> {
-    if (!path.startsWith("/")) {
-        path = "/" + path;
-    }
-    const BACKEND = event.context?.cloudflare?.env?.BACKEND;
-    if (BACKEND) {
-        return BACKEND.fetch("http://backend" + path, init);
-    }
-    return fetch("https://api.mallam.ai" + path, init);
+  if (!path.startsWith("/")) {
+    path = "/" + path;
+  }
+  const BACKEND = event.context?.cloudflare?.env?.BACKEND;
+  if (BACKEND) {
+    return BACKEND.fetch("http://backend" + path, init);
+  }
+  return fetch("https://api.mallam.ai" + path, init);
 }
 
 /**
@@ -33,28 +33,26 @@ async function fetchBackend(
  * @returns rpc response
  */
 export async function invokeBackend(
-    event: H3Event,
-    method: string,
-    args: any
+  event: H3Event,
+  method: string,
+  args: any
 ): Promise<any> {
-    const config = useRuntimeConfig();
+  const config = useRuntimeConfig();
 
-    const res = await fetchBackend(
-        event,
-        `/invoke/${method}?secret_key=${config.backend.secretKey}`,
-        {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json; charset=utf-8",
-            },
-            body: JSON.stringify(args),
-        });
+  const res = await fetchBackend(event, `/invoke/${method}`, {
+    method: "POST",
+    headers: {
+      "X-Secret-Key": config.backend.secretKey,
+      "Content-Type": "application/json; charset=utf-8",
+    },
+    body: JSON.stringify(args),
+  });
 
-    if (res.ok) {
-        return res.json();
-    }
+  if (res.ok) {
+    return res.json();
+  }
 
-    const {error} = await res.json();
+  const { error } = await res.json();
 
-    throw createError({statusCode: res.status, message: error});
+  throw createError({ statusCode: res.status, message: error });
 }
