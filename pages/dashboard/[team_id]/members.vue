@@ -57,6 +57,9 @@ async function addMember() {
 }
 
 async function removeMember(userId: string) {
+  if (!confirm("Are you sure you want to remove this member?")) {
+    return;
+  }
   working.value = true;
   try {
     await $fetch("/api/memberships/destroy", {
