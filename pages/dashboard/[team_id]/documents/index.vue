@@ -55,7 +55,10 @@ watch([page, pageCount], fetchDocuments);
     title-name="Documents"
     :active-team-display-name="team.displayName"
   >
-    <div class="mb-6">
+    <div
+      v-if="team.membershipRole === 'member' || team.membershipRole === 'admin'"
+      class="mb-6"
+    >
       <UButton
         icon="i-mdi-file-document-plus"
         label="New Document"
