@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
   const { teamId }: { teamId: string } = await readBody(event);
 
   return await invokeBackend(event, "team_delete", {
-    teamId,
+    teamId: teamId.trim(),
     userId: user.id,
   });
 });

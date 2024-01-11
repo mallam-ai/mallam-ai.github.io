@@ -46,8 +46,8 @@ async function onSubmit(event: FormSubmitEvent<any>) {
 
 <template>
   <SkeletonDashboard
-    title-icon="i-heroicons-trash"
-    :title-name="'Delete Team: ' + team.displayName"
+    title-icon="i-heroicons-arrow-left-end-on-rectangle"
+    :title-name="'Leave Team: ' + team.displayName"
     :active-team-display-name="team.displayName"
   >
     <UForm
