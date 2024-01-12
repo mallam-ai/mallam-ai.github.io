@@ -5,13 +5,10 @@ import { marked } from "marked";
 definePageMeta({
   middleware: ["auth"],
 });
+
 const { data: team, refresh: refreshTeam } = await useCurrentTeam();
 
-const documentId = useRoute().params.document_id as string;
-
-const { data: document, refresh: refreshDocument } = await useDocument(
-  documentId
-);
+const { data: document, refresh: refreshDocument } = await useCurrentDocument();
 
 const contentHTML = computed(() => {
   return sanitizeHtml(marked.parse(document.value.content));
@@ -35,6 +32,21 @@ const contentHTML = computed(() => {
         label="Edit Document"
         :to="{
           name: 'dashboard-team_id-documents-document_id-edit',
+          params: { team_id: team.id, document_id: document.id },
+        }"
+      ></UButton>
+
+      <UButton
+        v-if="
+          team.membershipRole === 'member' || team.membershipRole === 'admin'
+        "
+        class="me-2"
+        color="red"
+        size="xs"
+        icon="i-mdi-trash"
+        label="Delete Document"
+        :to="{
+          name: 'dashboard-team_id-documents-document_id-delete',
           params: { team_id: team.id, document_id: document.id },
         }"
       ></UButton>

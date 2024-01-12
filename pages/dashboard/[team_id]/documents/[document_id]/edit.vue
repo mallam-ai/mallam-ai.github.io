@@ -7,11 +7,7 @@ definePageMeta({
 
 const { data: team, refresh: refreshTeam } = await useCurrentTeam();
 
-const documentId = useRoute().params.document_id as string;
-
-const { data: document, refresh: refreshDocument } = await useDocument(
-  documentId
-);
+const { data: document, refresh: refreshDocument } = await useCurrentDocument();
 
 const state = reactive({
   title: document.value.title,
@@ -43,12 +39,12 @@ async function onSubmit(event: FormSubmitEvent<any>) {
         "Content-Type": "application/json",
       }),
       body: JSON.stringify(
-        Object.assign(event.data, { documentId: documentId })
+        Object.assign(event.data, { documentId: document.value.id })
       ),
     });
     navigateTo({
       name: "dashboard-team_id-documents-document_id",
-      params: { team_id: team.value.id, document_id: documentId },
+      params: { team_id: team.value.id, document_id: document.value.id },
     });
   } finally {
     working.value = false;
@@ -67,6 +63,10 @@ async function onSubmit(event: FormSubmitEvent<any>) {
       class="space-y-4 w-full"
       @submit="onSubmit"
     >
+      <UFormGroup label="Document Id" name="id">
+        <label class="text-sm ps-2">{{ document.id }}</label>
+      </UFormGroup>
+
       <UFormGroup label="Title" name="title">
         <UInput v-model="state.title" />
       </UFormGroup>

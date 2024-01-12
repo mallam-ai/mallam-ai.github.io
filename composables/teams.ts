@@ -1,9 +1,6 @@
 export const useCurrentTeam = () => {
-  const route = useRoute();
-  if (!route.params.team_id) {
-    return useTeam("");
-  }
-  return useTeam(route.params.team_id.toString());
+  const teamId = useRoute().params.team_id as string;
+  return useTeam(teamId);
 };
 
 export const useTeams = async () => {

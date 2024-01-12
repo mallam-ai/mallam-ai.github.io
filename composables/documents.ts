@@ -15,3 +15,8 @@ export const useDocument = (id: string) => {
     }
   );
 };
+
+export const useCurrentDocument = () => {
+  const documentId = useRoute().params.document_id as string;
+  return useDocument(documentId);
+};
