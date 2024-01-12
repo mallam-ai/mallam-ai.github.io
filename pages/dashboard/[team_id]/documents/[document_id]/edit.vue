@@ -56,6 +56,7 @@ async function onSubmit(event: FormSubmitEvent<any>) {
   <SkeletonDashboard
     title-icon="i-mdi-pencil-box-outline"
     title-name="Update Document"
+    active-team-display-name="team.displayName"
   >
     <UForm
       :validate="validate"
