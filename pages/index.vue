@@ -54,8 +54,8 @@ async function doSignOut() {
     <div v-if="user.id" class="mt-8 flex flex-col">
       <UButton
         label="Continue to Dashboard"
-        icon="i-mdi-monitor-dashboard"
-        size="lg"
+        icon="i-mdi-view-dashboard-variant"
+        size="sm"
         :to="{ name: 'dashboard' }"
       ></UButton>
     </div>
@@ -63,7 +63,7 @@ async function doSignOut() {
       <UButton
         label="Sign in with GitHub"
         icon="i-simple-icons-github"
-        size="lg"
+        size="sm"
         :to="{ name: 'sign_in' }"
       ></UButton>
     </div>
