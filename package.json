@@ -10,10 +10,10 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@nuxt/devtools": "^1.0.6",
+    "@nuxt/devtools": "^1.0.8",
     "@types/sanitize-html": "^2.9.5",
     "nuxt": "^3.9.1",
-    "vue": "^3.4.7",
+    "vue": "^3.4.13",
     "vue-router": "^4.2.5"
   },
   "dependencies": {
