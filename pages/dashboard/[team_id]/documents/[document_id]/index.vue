@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import sanitizeHtml from "sanitize-html";
-import { marked } from "marked";
-
 definePageMeta({
   middleware: ["auth"],
 });
@@ -10,8 +7,14 @@ const { data: team, refresh: refreshTeam } = await useCurrentTeam();
 
 const { data: document, refresh: refreshDocument } = await useCurrentDocument();
 
-const contentHTML = computed(() => {
-  return sanitizeHtml(marked.parse(document.value.content));
+const sentences = computed(() => {
+  if (document.value.sentences && document.value.sentences.length > 0) {
+    return document.value.sentences.map((s) => s.trim());
+  }
+  return document.value.content
+    .split("\n")
+    .map((s) => s.trim())
+    .filter((s) => s);
 });
 </script>
 
@@ -73,6 +76,10 @@ const contentHTML = computed(() => {
         </UBadge>
       </div>
     </div>
-    <article class="prose dark:prose-invert" v-html="contentHTML"></article>
+    <article class="prose dark:prose-invert">
+      <p v-for="(sentence, index) in sentences" :key="index">
+        {{ sentence }}
+      </p>
+    </article>
   </SkeletonDashboard>
 </template>

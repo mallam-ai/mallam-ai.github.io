@@ -7,6 +7,7 @@ export interface MDocument {
   content: string;
   createdBy: string;
   createdAt: string;
+  sentences?: Array<string>;
 }
 
 export function emptyDocument(): MDocument {
@@ -19,6 +20,7 @@ export function emptyDocument(): MDocument {
     content: "",
     createdBy: "",
     createdAt: "",
+    sentences: [],
   };
 }
 
