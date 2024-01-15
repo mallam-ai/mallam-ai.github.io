@@ -9,11 +9,21 @@ const { data: team, refresh: refreshTeam } = await useCurrentTeam();
 
 const working = ref(false);
 
-const page = ref(1);
-const pageCount = ref(20);
-const total = ref(pageCount.value);
-
 const documents = ref<Array<MDocument>>([]);
+
+const effectivePage = computed(() => {
+  const route = useRoute();
+  return route.query.page ? parseInt(route.query.page as string) : 1;
+});
+
+const effectivePageSize = computed(() => {
+  const route = useRoute();
+  return route.query.page_size ? parseInt(route.query.page_size as string) : 20;
+});
+
+const displayPage = ref(effectivePage.value);
+const displayPageSize = ref(effectivePageSize.value);
+const displayTotal = ref(displayPageSize.value);
 
 const columns = [
   {
@@ -32,12 +42,12 @@ async function fetchDocuments() {
     const data = await $fetch("/api/documents/list", {
       query: {
         teamId: team.value.id,
-        offset: (page.value - 1) * pageCount.value,
-        limit: pageCount.value,
+        offset: (effectivePage.value - 1) * effectivePageSize.value,
+        limit: effectivePageSize.value,
       },
       headers: decorateHeaders(),
     });
-    total.value = data.total;
+    displayTotal.value = data.total;
     documents.value = data.documents;
   } finally {
     working.value = false;
@@ -46,7 +56,16 @@ async function fetchDocuments() {
 
 await fetchDocuments();
 
-watch([page, pageCount], fetchDocuments);
+watch([effectivePage, effectivePageSize], fetchDocuments);
+
+watch([displayPage, displayPageSize], async function () {
+  navigateTo({
+    query: {
+      page: displayPage.value,
+      page_size: displayPageSize.value,
+    },
+  });
+});
 </script>
 
 <template>
@@ -108,9 +127,9 @@ watch([page, pageCount], fetchDocuments);
     </div>
     <div class="flex flex-row justify-center mb-4">
       <UPagination
-        v-model="page"
-        :page-count="pageCount"
-        :total="total"
+        v-model="displayPage"
+        :page-count="displayPageSize"
+        :total="displayTotal"
         :disabled="working"
       />
     </div>
