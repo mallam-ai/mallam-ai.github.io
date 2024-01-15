@@ -6,7 +6,7 @@ export interface MDocument {
   content: string;
   createdBy: string;
   createdAt: string;
-  sentences?: Array<string>;
+  sentences?: Array<{ content: string; isAnalyzed: boolean }>;
 }
 
 export const DocumentStatus = {

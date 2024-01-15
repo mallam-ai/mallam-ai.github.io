@@ -89,7 +89,7 @@ watch([page, pageCount], fetchDocuments);
             class="ms-2"
             color="red"
           >
-            <UIcon class="me-1" name="i-mdi-timer-sand"></UIcon>
+            <UIcon class="me-1" name="i-mdi-alert"></UIcon>
             <span>Failed Analyzing</span>
           </UBadge>
 

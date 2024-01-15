@@ -7,13 +7,21 @@ const { data: team, refresh: refreshTeam } = await useCurrentTeam();
 
 const { data: document, refresh: refreshDocument } = await useCurrentDocument();
 
+const sentencesTotal = computed(() => {
+  return (document.value.sentences || []).length;
+});
+
+const sentencesAnalyzed = computed(() => {
+  return (document.value.sentences || []).filter((s) => s.isAnalyzed).length;
+});
+
 const sentences = computed(() => {
   if (
     document.value.sentences &&
     (document.value.status === DocumentStatus.Segmented ||
       document.value.status === DocumentStatus.Analyzed)
   ) {
-    return document.value.sentences.map((s) => s.trim());
+    return document.value.sentences.map((s) => s.content.trim());
   }
   return document.value.content
     .split("\n")
@@ -80,13 +88,13 @@ const sentences = computed(() => {
           variant="subtle"
           color="red"
         >
-          <UIcon class="me-1" name="i-mdi-check"></UIcon>
+          <UIcon class="me-1" name="i-mdi-alert"></UIcon>
           <span>Failed Analyzing</span>
         </UBadge>
 
         <UBadge size="lg" v-else variant="subtle" color="amber">
           <UIcon class="me-1" name="i-mdi-timer-sand"></UIcon>
-          <span>Analyzing</span>
+          <span>{{ sentencesAnalyzed }}/{{ sentencesTotal }} Analyzed</span>
         </UBadge>
       </div>
     </div>
