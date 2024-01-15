@@ -1,8 +1,7 @@
 export interface MDocument {
   id: string;
   teamId: string;
-  isPublic: boolean;
-  isAnalyzed: boolean;
+  status: number;
   title: string;
   content: string;
   createdBy: string;
@@ -10,12 +9,18 @@ export interface MDocument {
   sentences?: Array<string>;
 }
 
+export const DocumentStatus = {
+  Created: 0,
+  Segmented: 1,
+  Analyzed: 2,
+  Failed: 99,
+};
+
 export function emptyDocument(): MDocument {
   return {
     id: "",
     teamId: "",
-    isPublic: false,
-    isAnalyzed: false,
+    status: 0,
     title: "",
     content: "",
     createdBy: "",

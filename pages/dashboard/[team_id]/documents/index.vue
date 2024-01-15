@@ -85,7 +85,18 @@ watch([page, pageCount], fetchDocuments);
           <UBadge
             variant="subtle"
             size="xs"
-            v-if="!row.isAnalyzed"
+            v-if="row.status === DocumentStatus.Failed"
+            class="ms-2"
+            color="red"
+          >
+            <UIcon class="me-1" name="i-mdi-timer-sand"></UIcon>
+            <span>Failed Analyzing</span>
+          </UBadge>
+
+          <UBadge
+            variant="subtle"
+            size="xs"
+            v-else-if="row.status !== DocumentStatus.Analyzed"
             class="ms-2"
             color="amber"
           >

@@ -8,7 +8,11 @@ const { data: team, refresh: refreshTeam } = await useCurrentTeam();
 const { data: document, refresh: refreshDocument } = await useCurrentDocument();
 
 const sentences = computed(() => {
-  if (document.value.sentences && document.value.sentences.length > 0) {
+  if (
+    document.value.sentences &&
+    (document.value.status === DocumentStatus.Segmented ||
+      document.value.status === DocumentStatus.Analyzed)
+  ) {
     return document.value.sentences.map((s) => s.trim());
   }
   return document.value.content
@@ -62,12 +66,22 @@ const sentences = computed(() => {
 
         <UBadge
           size="lg"
-          v-if="document.isAnalyzed"
+          v-if="document.status === DocumentStatus.Analyzed"
           variant="subtle"
           color="lime"
         >
           <UIcon class="me-1" name="i-mdi-check"></UIcon>
           <span>Analyzed</span>
+        </UBadge>
+
+        <UBadge
+          size="lg"
+          v-else-if="document.status === DocumentStatus.Failed"
+          variant="subtle"
+          color="red"
+        >
+          <UIcon class="me-1" name="i-mdi-check"></UIcon>
+          <span>Failed Analyzing</span>
         </UBadge>
 
         <UBadge size="lg" v-else variant="subtle" color="amber">
