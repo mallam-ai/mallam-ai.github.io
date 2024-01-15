@@ -1,7 +1,7 @@
 export interface MDocument {
   id: string;
   teamId: string;
-  status: number;
+  status: string;
   title: string;
   content: string;
   createdBy: string;
@@ -10,17 +10,17 @@ export interface MDocument {
 }
 
 export const DocumentStatus = {
-  Created: 0,
-  Segmented: 1,
-  Analyzed: 2,
-  Failed: 99,
+  Created: "created",
+  Segmented: "segmented",
+  Analyzed: "analyzed",
+  Failed: "failed",
 };
 
 export function emptyDocument(): MDocument {
   return {
     id: "",
     teamId: "",
-    status: 0,
+    status: DocumentStatus.Created,
     title: "",
     content: "",
     createdBy: "",
