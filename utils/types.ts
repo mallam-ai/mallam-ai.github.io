@@ -6,7 +6,12 @@ export interface MDocument {
   content: string;
   createdBy: string;
   createdAt: string;
-  sentences?: Array<{ content: string; isAnalyzed: boolean }>;
+  sentences?: Array<{
+    id: string;
+    content: string;
+    isAnalyzed: boolean;
+    highlighted?: boolean;
+  }>;
 }
 
 export const DocumentStatus = {

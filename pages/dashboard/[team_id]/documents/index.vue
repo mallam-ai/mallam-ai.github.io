@@ -74,15 +74,25 @@ watch([displayPage, displayPageSize], async function () {
     title-name="Documents"
     :active-team-display-name="team.displayName"
   >
-    <div
-      v-if="team.membershipRole === 'member' || team.membershipRole === 'admin'"
-      class="mb-6"
-    >
+    <div class="mb-6 flex flex-row justify-between">
       <UButton
+        v-if="
+          team.membershipRole === 'member' || team.membershipRole === 'admin'
+        "
         icon="i-mdi-file-document-plus"
         label="New Document"
         :to="{
           name: 'dashboard-team_id-documents-new',
+          params: { team_id: team.id },
+        }"
+      ></UButton>
+
+      <UButton
+        class="ms-2"
+        icon="i-mdi-search"
+        label="Search"
+        :to="{
+          name: 'dashboard-team_id-documents-search',
           params: { team_id: team.id },
         }"
       ></UButton>
