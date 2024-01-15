@@ -7,14 +7,6 @@ const { data: team, refresh: refreshTeam } = await useCurrentTeam();
 
 const { data: document, refresh: refreshDocument } = await useCurrentDocument();
 
-const sentencesTotal = computed(() => {
-  return (document.value.sentences || []).length;
-});
-
-const sentencesAnalyzed = computed(() => {
-  return (document.value.sentences || []).filter((s) => s.isAnalyzed).length;
-});
-
 const sentences = computed(() => {
   if (
     document.value.sentences &&
@@ -72,30 +64,10 @@ const sentences = computed(() => {
           <span>{{ document.createdAt }}</span>
         </UBadge>
 
-        <UBadge
+        <DocumentStatusBadge
           size="lg"
-          v-if="document.status === DocumentStatus.Analyzed"
-          variant="subtle"
-          color="lime"
-        >
-          <UIcon class="me-1" name="i-mdi-check"></UIcon>
-          <span>Analyzed</span>
-        </UBadge>
-
-        <UBadge
-          size="lg"
-          v-else-if="document.status === DocumentStatus.Failed"
-          variant="subtle"
-          color="red"
-        >
-          <UIcon class="me-1" name="i-mdi-alert"></UIcon>
-          <span>Failed Analyzing</span>
-        </UBadge>
-
-        <UBadge size="lg" v-else variant="subtle" color="amber">
-          <UIcon class="me-1" name="i-mdi-timer-sand"></UIcon>
-          <span>{{ sentencesAnalyzed }}/{{ sentencesTotal }} Analyzed</span>
-        </UBadge>
+          :document="document"
+        ></DocumentStatusBadge>
       </div>
     </div>
     <article class="prose dark:prose-invert">

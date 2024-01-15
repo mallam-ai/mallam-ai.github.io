@@ -101,27 +101,7 @@ watch([displayPage, displayPageSize], async function () {
           >
           </UButton>
 
-          <UBadge
-            variant="subtle"
-            size="xs"
-            v-if="row.status === DocumentStatus.Failed"
-            class="ms-2"
-            color="red"
-          >
-            <UIcon class="me-1" name="i-mdi-alert"></UIcon>
-            <span>Failed Analyzing</span>
-          </UBadge>
-
-          <UBadge
-            variant="subtle"
-            size="xs"
-            v-else-if="row.status !== DocumentStatus.Analyzed"
-            class="ms-2"
-            color="amber"
-          >
-            <UIcon class="me-1" name="i-mdi-timer-sand"></UIcon>
-            <span>Analyzing</span>
-          </UBadge>
+          <DocumentStatusBadge class="ms-2" :document="row" />
         </template>
       </UTable>
     </div>
