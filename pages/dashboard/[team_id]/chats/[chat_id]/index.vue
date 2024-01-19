@@ -7,8 +7,8 @@ const { data: team, refresh: refreshTeam } = await useCurrentTeam();
 
 <template>
   <SkeletonDashboard
-    title-icon="i-heroicons-chat-bubble-left-right"
-    title-name="Chat"
+    title-icon="i-mdi-chat-processing"
+    title-name="Chat with AI"
     :active-team-display-name="team.displayName"
   >
     <UnderDevelopment></UnderDevelopment>

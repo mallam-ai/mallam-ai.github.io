@@ -23,10 +23,10 @@ const links = computed(() => {
           },
         },
         {
-          label: "Chat",
+          label: "Chat with AI",
           icon: "i-heroicons-chat-bubble-left-right",
           to: {
-            name: "dashboard-team_id-chat",
+            name: "dashboard-team_id-chats",
             params: {
               team_id,
             },

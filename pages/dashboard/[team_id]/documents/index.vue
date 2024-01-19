@@ -66,6 +66,30 @@ watch([displayPage, displayPageSize], async function () {
     },
   });
 });
+
+const retryWorking = ref(false);
+
+async function retryFailed() {
+  if (!confirm("Confim to reanalyze failed documents?")) {
+    return;
+  }
+
+  retryWorking.value = true;
+
+  try {
+    await $fetch("/api/documents/retry", {
+      method: "POST",
+      headers: decorateHeaders({
+        "Content-Type": "application/json",
+      }),
+      body: JSON.stringify({
+        teamId: team.value.id,
+      }),
+    });
+  } finally {
+    retryWorking.value = false;
+  }
+}
 </script>
 
 <template>
@@ -75,17 +99,30 @@ watch([displayPage, displayPageSize], async function () {
     :active-team-display-name="team.displayName"
   >
     <div class="mb-6 flex flex-row justify-between">
-      <UButton
-        v-if="
-          team.membershipRole === 'member' || team.membershipRole === 'admin'
-        "
-        icon="i-mdi-file-document-plus"
-        label="New Document"
-        :to="{
-          name: 'dashboard-team_id-documents-new',
-          params: { team_id: team.id },
-        }"
-      ></UButton>
+      <div>
+        <UButton
+          v-if="
+            team.membershipRole === 'member' || team.membershipRole === 'admin'
+          "
+          icon="i-mdi-file-document-plus"
+          label="New Document"
+          :to="{
+            name: 'dashboard-team_id-documents-new',
+            params: { team_id: team.id },
+          }"
+        ></UButton>
+        <UButton
+          v-if="
+            team.membershipRole === 'member' || team.membershipRole === 'admin'
+          "
+          class="ms-2"
+          icon="i-mdi-cloud-refresh-variant"
+          label="Retry Failed"
+          @click="retryFailed"
+          :disabled="retryWorking"
+          :loading="retryWorking"
+        ></UButton>
+      </div>
 
       <UButton
         class="ms-2"
