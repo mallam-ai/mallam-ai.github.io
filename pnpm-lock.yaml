@@ -372,8 +372,8 @@ packages:
       '@babel/helper-validator-identifier': 7.22.20
       to-fast-properties: 2.0.0
 
-  /@cloudflare/kv-asset-handler@0.3.0:
-    resolution: {integrity: sha512-9CB/MKf/wdvbfkUdfrj+OkEwZ5b7rws0eogJ4293h+7b6KX5toPwym+VQKmILafNB9YiehqY0DlNrDcDhdWHSQ==}
+  /@cloudflare/kv-asset-handler@0.3.1:
+    resolution: {integrity: sha512-lKN2XCfKCmpKb86a1tl4GIwsJYDy9TGuwjhDELLmpKygQhw8X2xR4dusgpC5Tg7q1pB96Eb0rBo81kxSILQMwA==}
     dependencies:
       mime: 3.0.0
 
@@ -652,8 +652,8 @@ packages:
       '@iconify/types': 2.0.0
     dev: false
 
-  /@iconify/collections@1.0.382:
-    resolution: {integrity: sha512-IZfhGvjeQihP0U8jjLIxoxvaYbcoV5ztCFKhSOgHzyR+PKTeOTC8P44Z7UVNlCUH+GcKJlRh/fGJTdt4/kDJgA==}
+  /@iconify/collections@1.0.383:
+    resolution: {integrity: sha512-ktPmaLdRBMveRXisZW/hxjb/X7sHTVDJn+vR4bXVNSy+iXGkODbODudctB6Wczx0iHstxuwn5TZpjRsCGvo8pw==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: false
@@ -769,8 +769,8 @@ packages:
       - encoding
       - supports-color
 
-  /@netlify/functions@2.5.0:
-    resolution: {integrity: sha512-myXzRomzLISrckzrbi1JcvelFmDOEkYow5NoWGvn3t8vvjgCKcjvSblbhhXHiHE3sk2EQeEx2IQHXiicQxnsSA==}
+  /@netlify/functions@2.5.1:
+    resolution: {integrity: sha512-7//hmiFHXGusAzuzEuXvRT9ItaeRjRs5lRs6lYUkaAXO1jnTWYDB2XdqFq5X4yMRX+/A96nrQ2HwCE+Pd0YMwg==}
     engines: {node: '>=14.0.0'}
     dependencies:
       '@netlify/serverless-functions-api': 1.13.0
@@ -1280,7 +1280,7 @@ packages:
       detect-libc: 1.0.3
       is-glob: 4.0.3
       micromatch: 4.0.5
-      node-addon-api: 7.0.0
+      node-addon-api: 7.1.0
     optionalDependencies:
       '@parcel/watcher-android-arm64': 2.4.0
       '@parcel/watcher-darwin-arm64': 2.4.0
@@ -1728,8 +1728,8 @@ packages:
       vite: 5.0.11
       vue: 3.4.15
 
-  /@vue-macros/common@1.10.0(vue@3.4.15):
-    resolution: {integrity: sha512-4DZsPeQA/nBQDw2RkYAmH7KrFjJVrMdAhJhO1JCl1bbbFXCGeoGjXfkg9wHPppj47s2HpAB3GrqNwqVGbi12NQ==}
+  /@vue-macros/common@1.10.1(vue@3.4.15):
+    resolution: {integrity: sha512-uftSpfwdwitcQT2lM8aVxcfe5rKQBzC9jMrtJM5sG4hEuFyfIvnJihpPpnaWxY+X4p64k+YYXtBFv+1O5Bq3dg==}
     engines: {node: '>=16.14.0'}
     peerDependencies:
       vue: ^2.7.0 || ^3.2.25
@@ -4022,8 +4022,8 @@ packages:
       xml2js:
         optional: true
     dependencies:
-      '@cloudflare/kv-asset-handler': 0.3.0
-      '@netlify/functions': 2.5.0
+      '@cloudflare/kv-asset-handler': 0.3.1
+      '@netlify/functions': 2.5.1
       '@rollup/plugin-alias': 5.1.0(rollup@4.9.5)
       '@rollup/plugin-commonjs': 25.0.7(rollup@4.9.5)
       '@rollup/plugin-inject': 5.0.5(rollup@4.9.5)
@@ -4067,7 +4067,7 @@ packages:
       node-fetch-native: 1.6.1
       ofetch: 1.3.3
       ohash: 1.1.3
-      openapi-typescript: 6.7.3
+      openapi-typescript: 6.7.4
       pathe: 1.1.2
       perfect-debounce: 1.0.0
       pkg-types: 1.0.3
@@ -4102,8 +4102,9 @@ packages:
       - idb-keyval
       - supports-color
 
-  /node-addon-api@7.0.0:
-    resolution: {integrity: sha512-vgbBJTS4m5/KkE16t5Ly0WW9hz46swAstv0hYYwMtbG7AznRhNyfLRe8HZAiWIpcHzoO7HxhLuBQj9rJ/Ho0ZA==}
+  /node-addon-api@7.1.0:
+    resolution: {integrity: sha512-mNcltoe1R8o7STTegSOHdnJNN7s5EUvhoS7ShnTHDyOSd+8H+UdWODq6qSv67PjC8Zc5JRT8+oLAMCr0SIXw7g==}
+    engines: {node: ^16 || ^18 || >= 20}
 
   /node-fetch-native@1.6.1:
     resolution: {integrity: sha512-bW9T/uJDPAJB2YNYEpWzE54U5O3MQidXsOyTfnbKYtTtFexRvGzb1waphBN4ZwP6EcIvYYEOwW0b72BpAqydTw==}
@@ -4268,7 +4269,7 @@ packages:
   /nuxt-icon@0.6.8(nuxt@3.9.3)(vite@5.0.11)(vue@3.4.15):
     resolution: {integrity: sha512-6eWlNOb6Uvp63uXFdhcmsB1JlubDv76Pot/VwmIu0yJxDYhwytbnv3WAjw2khl2l7W/65V4eMGIEeX9C5Ahxng==}
     dependencies:
-      '@iconify/collections': 1.0.382
+      '@iconify/collections': 1.0.383
       '@iconify/vue': 4.1.1(vue@3.4.15)
       '@nuxt/devtools-kit': 1.0.8(nuxt@3.9.3)(vite@5.0.11)
       '@nuxt/kit': 3.9.3
@@ -4465,8 +4466,8 @@ packages:
       is-inside-container: 1.0.0
       is-wsl: 2.2.0
 
-  /openapi-typescript@6.7.3:
-    resolution: {integrity: sha512-es3mGcDXV6TKPo6n3aohzHm0qxhLyR39MhF6mkD1FwFGjhxnqMqfSIgM0eCpInZvqatve4CxmXcMZw3jnnsaXw==}
+  /openapi-typescript@6.7.4:
+    resolution: {integrity: sha512-EZyeW9Wy7UDCKv0iYmKrq2pVZtquXiD/YHiUClAKqiMi42nodx/EQH11K6fLqjt1IZlJmVokrAsExsBMM2RROQ==}
     hasBin: true
     dependencies:
       ansi-colors: 4.1.3
@@ -5806,7 +5807,7 @@ packages:
     dependencies:
       '@babel/types': 7.23.6
       '@rollup/pluginutils': 5.1.0(rollup@4.9.5)
-      '@vue-macros/common': 1.10.0(vue@3.4.15)
+      '@vue-macros/common': 1.10.1(vue@3.4.15)
       ast-walker-scope: 0.5.0
       chokidar: 3.5.3
       fast-glob: 3.3.2
