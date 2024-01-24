@@ -1,3 +1,31 @@
+export interface Chat {
+  id: string;
+  teamId: string;
+  userId: string;
+  title: string;
+  createdAt: string;
+  histories?: History[];
+}
+
+export function defaultChat(): Chat {
+  return {
+    id: "",
+    teamId: "",
+    userId: "",
+    title: "",
+    createdAt: "",
+    histories: [],
+  };
+}
+
+export interface History {
+  id: string;
+  role: string;
+  status: string;
+  content: string;
+  contentHtml: string;
+}
+
 export interface MDocument {
   id: string;
   teamId: string;

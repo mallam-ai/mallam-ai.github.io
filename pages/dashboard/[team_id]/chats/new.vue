@@ -11,16 +11,10 @@ const { data: team, refresh: refreshTeam } = await useCurrentTeam();
 
 const state = reactive({
   content: "",
-  context: "",
 });
-
-const contextRows = ref(12);
 
 const validate = (state: any): FormError[] => {
   const errors = [];
-  if (!state.title) {
-    errors.push({ path: "title", message: "Required" });
-  }
   if (!state.content) {
     errors.push({ path: "content", message: "Required" });
   }
@@ -35,17 +29,28 @@ const working = ref(false);
 async function onSubmit(event: FormSubmitEvent<any>) {
   working.value = true;
   try {
+    const context = selectedDocuments.value
+      .map((d) => {
+        return (
+          'In document: "' +
+          (d.title || "").replaceAll('"', "") +
+          '"\n' +
+          (d.sentences || []).map((s) => `- ${s.content}`).join("\n") +
+          "\n"
+        );
+      })
+      .join("\n");
     const chat = await $fetch("/api/chats/create", {
       method: "POST",
       headers: decorateHeaders({
         "Content-Type": "application/json",
       }),
       body: JSON.stringify(
-        Object.assign(
-          event.data,
-          { teamId: team.value.id },
-          { title: event.data.content }
-        )
+        Object.assign({}, event.data, {
+          teamId: team.value.id,
+          title: event.data.content,
+          context,
+        })
       ),
     });
     navigateTo({
@@ -126,50 +131,51 @@ function onDocumentFetched(doc: MDocument) {
     title-name="New Conversation with AI"
     :active-team-display-name="team.displayName"
   >
-    <div>
-      <UButton
-        class="ms-2"
-        icon="i-mdi-search"
-        label="Search Documents"
-        @click="showSearch = !showSearch"
-      ></UButton>
-    </div>
-
-    <div class="mt-6">
-      <div class="flex flex-row items-center font-semibold mb-4">
+    <div class="flex flex-row items-center mb-4">
+      <div
+        class="flex flex-row justify-center items-center text-lg font-semibold"
+      >
         <UIcon name="i-mdi-file-cabinet" class="me-2"></UIcon>
         <span>Attached Documents</span>
       </div>
-      <div
-        v-if="selectedDocuments.length === 0"
-        class="flex flex-row justify-center"
-      >
-        <span class="text-slate-400 py-4">No Documents Attached</span>
+      <div>
+        <UButton
+          class="ms-2"
+          size="xs"
+          icon="i-mdi-search"
+          label="Search Documents"
+          @click="showSearch = !showSearch"
+        ></UButton>
       </div>
-      <div v-for="document in selectedDocuments" class="mb-4">
-        <div class="flex flex-row items-center">
-          <UIcon name="i-mdi-file-document" class="me-2"></UIcon>
-          <span class="font-medium">{{ document.title }}</span>
-          <UButton
-            icon="i-mdi-trash"
-            color="red"
-            size="xs"
-            variant="ghost"
-            class="ms-2"
-            @click="removeSelectedDocument(document.id)"
-          ></UButton>
-        </div>
-        <div v-for="sentence in document.sentences">
-          <span class="text-slate-400">{{ sentence.content }}</span>
-          <UButton
-            icon="i-mdi-trash"
-            color="red"
-            size="xs"
-            variant="ghost"
-            class="ms-2"
-            @click="removeSelectedSentence(sentence.id)"
-          ></UButton>
-        </div>
+    </div>
+
+    <div v-if="selectedDocuments.length === 0">
+      <span class="text-slate-400 py-2">No Documents Attached</span>
+    </div>
+
+    <div v-for="document in selectedDocuments" class="mb-4">
+      <div class="flex flex-row items-center">
+        <UIcon name="i-mdi-file-document" class="me-2"></UIcon>
+        <span class="font-medium">{{ document.title }}</span>
+        <UButton
+          icon="i-mdi-trash"
+          color="red"
+          size="xs"
+          variant="ghost"
+          class="ms-2"
+          @click="removeSelectedDocument(document.id)"
+        ></UButton>
+      </div>
+      <div v-for="sentence in document.sentences">
+        <span class="text-slate-400">{{ sentence.content }}</span>
+        <UButton
+          icon="i-mdi-trash"
+          color="red"
+          size="xs"
+          variant="ghost"
+          class="ms-2"
+          @click="removeSelectedSentence(sentence.id)"
+        ></UButton>
       </div>
     </div>
 
@@ -181,13 +187,13 @@ function onDocumentFetched(doc: MDocument) {
         @submit="onSubmit"
       >
         <UFormGroup label="User Input" name="content">
-          <UInput v-model="state.content" />
+          <UInput v-model="state.content" :disabled="working" />
         </UFormGroup>
 
         <UButton
           type="submit"
           color="lime"
-          label="Create"
+          label="Submit"
           icon="i-mdi-chat-plus-outline"
           :loading="working"
           :disabled="working"
