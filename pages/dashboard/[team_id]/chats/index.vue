@@ -11,6 +11,7 @@ const { data: team, refresh: refreshTeam } = await useCurrentTeam();
     title-name="Chat with AI"
     :active-team-display-name="team.displayName"
   >
+    <!--
     <div>
       <UButton
         label="New Conversation"
@@ -23,6 +24,7 @@ const { data: team, refresh: refreshTeam } = await useCurrentTeam();
         }"
       ></UButton>
     </div>
+-->
 
     <UnderDevelopment class="mt-6"></UnderDevelopment>
   </SkeletonDashboard>

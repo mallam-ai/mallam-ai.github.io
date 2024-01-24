@@ -18,17 +18,15 @@ const sentencesAnalyzed = computed(() => {
 </script>
 
 <template>
-  <template v-if="document.status === DocumentStatus.Analyzed">
-    <UBadge
-      v-if="document.sentences"
-      :size="size"
-      variant="subtle"
-      color="lime"
-    >
-      <UIcon class="me-1" name="i-mdi-check"></UIcon>
-      <span>Analyzed</span>
-    </UBadge>
-  </template>
+  <UBadge
+    v-if="document.status === DocumentStatus.Analyzed"
+    :size="size"
+    variant="subtle"
+    color="lime"
+  >
+    <UIcon class="me-1" name="i-mdi-check"></UIcon>
+    <span>Analyzed</span>
+  </UBadge>
 
   <UBadge
     :size="size"

@@ -148,7 +148,11 @@ async function retryFailed() {
           >
           </UButton>
 
-          <DocumentStatusBadge class="ms-2" :document="row" />
+          <DocumentStatusBadge
+            class="ms-2"
+            v-if="row.status !== 'analyzed'"
+            :document="row"
+          />
         </template>
       </UTable>
     </div>
