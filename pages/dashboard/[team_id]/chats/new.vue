@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { uniqBy, sortBy, cloneDeep } from "lodash";
 import type { FormError, FormSubmitEvent } from "#ui/types";
+import { _textDecorationColor } from "#tailwind-config/theme";
 
 definePageMeta({
   middleware: ["auth"],
@@ -57,10 +59,64 @@ async function onSubmit(event: FormSubmitEvent<any>) {
 
 const showSearch = ref(false);
 
-const sentenceIds = ref([]);
+const sentenceIds = ref<Array<string>>([]);
 
-function onDocumentFetched(document: MDocument) {
-  console.log("onDocumentFetched", document);
+const database = ref<Record<string, MDocument>>({});
+
+const selectedDocuments = computed(() => {
+  const result: MDocument[] = [];
+  for (let [id, doc] of Object.entries(database.value)) {
+    doc = cloneDeep(doc);
+    doc.sentences = (doc.sentences || []).filter((s) =>
+      sentenceIds.value.includes(s.id)
+    );
+    if (doc.sentences.length > 0) {
+      result.push(doc);
+    }
+  }
+  return result;
+});
+
+function removeSelectedSentence(id: string) {
+  const _sentenceIds = cloneDeep(sentenceIds.value);
+  const index = _sentenceIds.indexOf(id);
+  if (index >= 0) {
+    _sentenceIds.splice(index, 1);
+  }
+  sentenceIds.value = _sentenceIds;
+}
+
+function removeSelectedDocument(id: string) {
+  const doc = database.value[id];
+  const _sentenceIds = cloneDeep(sentenceIds.value);
+  if (doc) {
+    doc.sentences?.forEach((s) => {
+      const index = _sentenceIds.indexOf(s.id);
+      if (index >= 0) {
+        _sentenceIds.splice(index, 1);
+      }
+    });
+  }
+  sentenceIds.value = _sentenceIds;
+}
+
+function onDocumentFetched(doc: MDocument) {
+  const _database = cloneDeep(database.value);
+
+  if (_database[doc.id]) {
+    const _doc = _database[doc.id];
+    if (!_doc.sentences || _doc.sentences.length === 0) {
+      _doc.sentences = doc.sentences || [];
+    } else {
+      _doc.sentences = _doc.sentences.concat(doc.sentences ?? []);
+    }
+    _doc.sentences = uniqBy(_doc.sentences, "id");
+    _doc.sentences = sortBy(_doc.sentences, "sequenceId");
+  } else {
+    _database[doc.id] = doc;
+  }
+
+  database.value = _database;
 }
 </script>
 
@@ -80,20 +136,50 @@ function onDocumentFetched(document: MDocument) {
     </div>
 
     <div class="mt-6">
+      <div class="flex flex-row items-center font-semibold mb-4">
+        <UIcon name="i-mdi-file-cabinet" class="me-2"></UIcon>
+        <span>Attached Documents</span>
+      </div>
+      <div
+        v-if="selectedDocuments.length === 0"
+        class="flex flex-row justify-center"
+      >
+        <span class="text-slate-400 py-4">No Documents Attached</span>
+      </div>
+      <div v-for="document in selectedDocuments" class="mb-4">
+        <div class="flex flex-row items-center">
+          <UIcon name="i-mdi-file-document" class="me-2"></UIcon>
+          <span class="font-medium">{{ document.title }}</span>
+          <UButton
+            icon="i-mdi-trash"
+            color="red"
+            size="xs"
+            variant="ghost"
+            class="ms-2"
+            @click="removeSelectedDocument(document.id)"
+          ></UButton>
+        </div>
+        <div v-for="sentence in document.sentences">
+          <span class="text-slate-400">{{ sentence.content }}</span>
+          <UButton
+            icon="i-mdi-trash"
+            color="red"
+            size="xs"
+            variant="ghost"
+            class="ms-2"
+            @click="removeSelectedSentence(sentence.id)"
+          ></UButton>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-6">
       <UForm
         :validate="validate"
         :state="state"
         class="space-y-4 w-full"
         @submit="onSubmit"
       >
-        <UFormGroup label="Context" name="context">
-          <UTextarea
-            v-model="state.context"
-            :rows="contextRows"
-            :disabled="true"
-          />
-        </UFormGroup>
-
         <UFormGroup label="User Input" name="content">
           <UInput v-model="state.content" />
         </UFormGroup>
