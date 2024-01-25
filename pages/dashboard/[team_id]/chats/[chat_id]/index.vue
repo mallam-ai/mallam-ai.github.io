@@ -83,26 +83,26 @@ watch(
     :active-team-display-name="team.displayName"
   >
     <div>
-      <div v-for="item in chat.histories" v-bind:key="item.id">
-        <div class="font-semibold flex flex-row items-center">
+      <UCard class="mb-3" v-for="item in chat.histories" v-bind:key="item.id">
+        <div class="font-semibold flex flex-row items-center my-2">
           <UIcon
             class="me-1"
             name="i-mdi-desktop-classic"
             v-if="item.role === 'system'"
-            >System</UIcon
-          >
+          ></UIcon>
           <UIcon
             class="me-1"
             name="i-mdi-robot"
             v-else-if="item.role === 'assistant'"
-            >Assistant</UIcon
-          >
-          <UIcon class="me-1" name="i-mdi-user" v-else-if="item.role === 'user'"
-            >User</UIcon
-          >
+          ></UIcon>
+          <UIcon
+            class="me-1"
+            name="i-mdi-user"
+            v-else-if="item.role === 'user'"
+          ></UIcon>
 
           <span v-if="item.role === 'system'">System</span>
-          <span v-else-if="item.role === 'assistant'">Assistant</span>
+          <span v-else-if="item.role === 'assistant'">AI</span>
           <span v-else-if="item.role === 'user'">User</span>
         </div>
 
@@ -113,16 +113,25 @@ watch(
           "
           class="text-slate-400"
         >
-          Waiting
+          Waiting...
+        </div>
+        <div
+          v-else-if="
+            item.role === 'assistant' &&
+            (item.status === 'failed' || item.status === 'none')
+          "
+          class="text-red-400"
+        >
+          Failed
         </div>
         <article
           v-else
           class="prose dark:prose-invert"
           v-html="item.contentHtml"
         ></article>
-      </div>
+      </UCard>
     </div>
-    <div class="mt-6">
+    <UCard class="mt-6">
       <UForm
         :validate="validate"
         :state="state"
@@ -142,6 +151,6 @@ watch(
           :disabled="working || waiting"
         ></UButton>
       </UForm>
-    </div>
+    </UCard>
   </SkeletonDashboard>
 </template>
