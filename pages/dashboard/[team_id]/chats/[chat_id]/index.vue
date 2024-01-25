@@ -78,6 +78,32 @@ watch(
 async function onHistoryRegenerated(historyId: string) {
   await refreshChat();
 }
+
+const deleting = ref(false);
+
+async function onDeleteClicked() {
+  if (!confirm("Confirm to delete conversation?")) {
+    return;
+  }
+  deleting.value = true;
+  try {
+    await $fetch("/api/chats/destroy", {
+      method: "POST",
+      headers: decorateHeaders({
+        "Content-Type": "application/json",
+      }),
+      body: JSON.stringify({
+        chatId: chat.value.id,
+      }),
+    });
+  } finally {
+    deleting.value = false;
+  }
+  navigateTo({
+    name: "dashboard-team_id-chats",
+    params: { team_id: team.value.id },
+  });
+}
 </script>
 
 <template>
@@ -87,15 +113,26 @@ async function onHistoryRegenerated(historyId: string) {
     :active-team-display-name="team.displayName"
   >
     <div>
-      <ChatHistoryCard
+      <UButton
         class="mb-3"
-        v-for="item in chat.histories"
-        v-bind:key="item.id"
-        :item="item"
-        @regenerated="onHistoryRegenerated"
-      >
-      </ChatHistoryCard>
+        color="red"
+        label="Delete Conversation"
+        icon="i-heroicons-trash"
+        :loading="deleting"
+        :disabled="deleting"
+        @click="onDeleteClicked"
+      ></UButton>
     </div>
+
+    <ChatHistoryCard
+      class="mb-3"
+      v-for="item in chat.histories"
+      v-bind:key="item.id"
+      :item="item"
+      @regenerated="onHistoryRegenerated"
+    >
+    </ChatHistoryCard>
+
     <UCard
       class="mt-6"
       :ui="{ ring: 'ring-2 ring-lime-200 dark:ring-lime-800' }"
