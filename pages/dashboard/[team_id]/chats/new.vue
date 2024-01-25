@@ -186,7 +186,7 @@ function onDocumentFetched(doc: MDocument) {
         class="space-y-4 w-full"
         @submit="onSubmit"
       >
-        <UFormGroup label="User Input" name="content">
+        <UFormGroup name="content">
           <UInput
             v-model="state.content"
             :disabled="working"

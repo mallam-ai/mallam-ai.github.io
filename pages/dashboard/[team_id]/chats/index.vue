@@ -68,7 +68,7 @@ watch([displayPage, displayPageSize], async function () {
 
 <template>
   <SkeletonDashboard
-    title-icon="i-heroicons-chat-text"
+    title-icon="i-heroicons-chat-bubble-left-right"
     title-name="Chats"
     :active-team-display-name="team.displayName"
   >
