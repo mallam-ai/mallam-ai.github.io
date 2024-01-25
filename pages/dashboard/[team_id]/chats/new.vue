@@ -187,7 +187,11 @@ function onDocumentFetched(doc: MDocument) {
         @submit="onSubmit"
       >
         <UFormGroup label="User Input" name="content">
-          <UInput v-model="state.content" :disabled="working" />
+          <UInput
+            v-model="state.content"
+            :disabled="working"
+            placeholder="Input here..."
+          />
         </UFormGroup>
 
         <UButton

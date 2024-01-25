@@ -83,63 +83,30 @@ watch(
     :active-team-display-name="team.displayName"
   >
     <div>
-      <UCard class="mb-3" v-for="item in chat.histories" v-bind:key="item.id">
-        <div class="font-semibold flex flex-row items-center my-2">
-          <UIcon
-            class="me-1"
-            name="i-mdi-desktop-classic"
-            v-if="item.role === 'system'"
-          ></UIcon>
-          <UIcon
-            class="me-1"
-            name="i-mdi-robot"
-            v-else-if="item.role === 'assistant'"
-          ></UIcon>
-          <UIcon
-            class="me-1"
-            name="i-mdi-user"
-            v-else-if="item.role === 'user'"
-          ></UIcon>
-
-          <span v-if="item.role === 'system'">System</span>
-          <span v-else-if="item.role === 'assistant'">AI</span>
-          <span v-else-if="item.role === 'user'">User</span>
-        </div>
-
-        <div
-          v-if="
-            item.role === 'assistant' &&
-            (item.status === 'pending' || item.status === 'generating')
-          "
-          class="text-slate-400"
-        >
-          Waiting...
-        </div>
-        <div
-          v-else-if="
-            item.role === 'assistant' &&
-            (item.status === 'failed' || item.status === 'none')
-          "
-          class="text-red-400"
-        >
-          Failed
-        </div>
-        <article
-          v-else
-          class="prose dark:prose-invert"
-          v-html="item.contentHtml"
-        ></article>
-      </UCard>
+      <ChatHistoryCard
+        class="mb-3"
+        v-for="item in chat.histories"
+        v-bind:key="item.id"
+        :item="item"
+      >
+      </ChatHistoryCard>
     </div>
-    <UCard class="mt-6">
+    <UCard
+      class="mt-6"
+      :ui="{ ring: 'ring-2 ring-lime-200 dark:ring-lime-800' }"
+    >
       <UForm
         :validate="validate"
         :state="state"
         class="space-y-4 w-full"
         @submit="onSubmit"
       >
-        <UFormGroup label="User Input" name="content">
-          <UInput v-model="state.content" :disabled="working || waiting" />
+        <UFormGroup name="content">
+          <UInput
+            v-model="state.content"
+            :disabled="working || waiting"
+            placeholder="Input here..."
+          />
         </UFormGroup>
 
         <UButton
