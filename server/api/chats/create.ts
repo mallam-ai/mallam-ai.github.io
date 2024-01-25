@@ -1,4 +1,6 @@
-export default defineEventHandler(async (event): Promise<{ id: string }> => {
+import { MChat } from "~/utils/types";
+
+export default defineEventHandler(async (event): Promise<MChat> => {
   const user = await retrieveSessionUser(event);
   if (!user.id) {
     throw createError({ statusCode: 401, message: "Unauthorized" });

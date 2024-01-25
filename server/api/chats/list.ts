@@ -1,11 +1,11 @@
 import { retrieveSessionUser } from "~/server/utils/user";
-import { Chat } from "~/utils/types";
+import { MChat } from "~/utils/types";
 
 export default defineEventHandler(
   async (
     event
   ): Promise<{
-    chats: Array<Chat>;
+    chats: Array<MChat>;
     offset: number;
     limit: number;
     total: number;

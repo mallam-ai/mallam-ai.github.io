@@ -1,9 +1,9 @@
 import { retrieveSessionUser } from "~/server/utils/user";
-import { Chat, History } from "~/utils/types";
+import { MChat, MHistory } from "~/utils/types";
 import sanitizeHtml from "sanitize-html";
 import { marked } from "marked";
 
-export default defineEventHandler(async (event): Promise<Chat> => {
+export default defineEventHandler(async (event): Promise<MChat> => {
   const user = await retrieveSessionUser(event);
   if (!user.id) {
     throw createError({ statusCode: 401, message: "Unauthorized" });

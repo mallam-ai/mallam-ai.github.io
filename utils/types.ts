@@ -1,13 +1,13 @@
-export interface Chat {
+export interface MChat {
   id: string;
   teamId: string;
   userId: string;
   title: string;
   createdAt: string;
-  histories?: History[];
+  histories?: MHistory[];
 }
 
-export function defaultChat(): Chat {
+export function defaultChat(): MChat {
   return {
     id: "",
     teamId: "",
@@ -18,12 +18,13 @@ export function defaultChat(): Chat {
   };
 }
 
-export interface History {
+export interface MHistory {
   id: string;
   role: string;
   status: string;
   content: string;
   contentHtml: string;
+  createdAt: "";
 }
 
 export interface MDocument {

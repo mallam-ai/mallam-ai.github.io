@@ -74,6 +74,10 @@ watch(
   },
   { immediate: false }
 );
+
+async function onHistoryRegenerated(historyId: string) {
+  await refreshChat();
+}
 </script>
 
 <template>
@@ -88,6 +92,7 @@ watch(
         v-for="item in chat.histories"
         v-bind:key="item.id"
         :item="item"
+        @regenerated="onHistoryRegenerated"
       >
       </ChatHistoryCard>
     </div>
